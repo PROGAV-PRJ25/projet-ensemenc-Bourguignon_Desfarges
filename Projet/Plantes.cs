@@ -7,7 +7,6 @@ public abstract class Plante
     public double BesoinsEau { get; set; }
     public double BesoinsLumiere { get; set; }
     public double TemperaturePref { get; set; }
-    public int Espacement { get; set; }
     public int VitesseCroissance { get; set; }
     public Maladies Maladies { get; set; }
     public int EsperanceVie { get; set; }
@@ -16,7 +15,7 @@ public abstract class Plante
     public string TypePlantes { get; set; }
 
     public Plante(string Nom, string Nature, Terrain TerrainPrefere, string SaisonSemis, double BesoinsEau,
-                  double BesoinsLumiere, double TemperaturePref, int Espacement, int VitesseCroissance,
+                  double BesoinsLumiere, double TemperaturePref, int VitesseCroissance,
                   Maladies Maladies, int EsperanceVie, int EtatSante, int NbRecoltesMax, string TypePlantes)
     {
         this.Nom = Nom;
@@ -26,7 +25,6 @@ public abstract class Plante
         this.BesoinsEau = BesoinsEau;
         this.BesoinsLumiere = BesoinsLumiere;
         this.TemperaturePref = TemperaturePref;
-        this.Espacement = Espacement;
         this.VitesseCroissance = VitesseCroissance;
         this.Maladies = Maladies;
         this.EsperanceVie = EsperanceVie;

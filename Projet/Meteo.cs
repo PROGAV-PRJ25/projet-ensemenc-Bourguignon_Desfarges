@@ -15,7 +15,8 @@ public class Meteo
     {
         if (Gel && plante.TemperaturePref < 0)
         {
-            plante.EtatSante = 0; // La plante meurt si la température descend trop bas
+            plante.EtatSante = 0; 
+            Console.WriteLine($"La {plante.Nom} est morte");// La plante meurt si la température descend trop bas
         }
         else
         {

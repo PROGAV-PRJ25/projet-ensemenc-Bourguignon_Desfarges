@@ -1,9 +1,9 @@
 public class PlanteComestible : Plante
 {
     public PlanteComestible(string nom, string nature, Terrain terrainPrefere, string saisonSemis,
-        double besoinsEau, double besoinsLumiere, double temperaturePref, int espacement, int vitesseCroissance,
+        double besoinsEau, double besoinsLumiere, double temperaturePref, int vitesseCroissance,
         Maladies maladies, int esperanceVie, int etatSante, int nbRecoltesMax, string typePlantes)
-        : base(nom, nature, terrainPrefere, saisonSemis, besoinsEau, besoinsLumiere, temperaturePref, espacement,
+        : base(nom, nature, terrainPrefere, saisonSemis, besoinsEau, besoinsLumiere, temperaturePref,
                vitesseCroissance, maladies, esperanceVie, etatSante, nbRecoltesMax, "Comestible")
     {
     }
