@@ -14,11 +14,4 @@ public abstract class Terrain
         Ensoleillement = ensoleillement;
         Temperature = temperature;
     }
-    public bool EstCompatibleAvecPlante(Plante plante)
-    {
-        return this.TypeSol == plante.TerrainPrefere.TypeSol &&
-               Math.Abs(this.HumiditeSol - plante.BesoinsEau) <= 20 &&
-               Math.Abs(this.Ensoleillement - plante.BesoinsLumiere) <= 20 &&
-               Math.Abs(this.Temperature - plante.TemperaturePref) <= 5;
-    }
 }

@@ -1,259 +1,294 @@
 public class Jeu
 {
     private List<Plante> plantes = new List<Plante>();
-    private Terrain terrain;
     private Meteo meteo;
     private int taillePotager;
+    private CasePotager[,] grillePotager;
+
+    private int poidsSable = 1, poidsTerre = 1, poidsArgile = 1;
+
 
     public Jeu()
     {
         Console.WriteLine("Bienvenue dans le simulateur de potager !");
-        Console.WriteLine("Quelle taille fait votre potager (en nombre de cases) ?");
+        Console.Write("Taille du potager (nombre de cases) : ");
         taillePotager = int.Parse(Console.ReadLine());
 
-        ChoisirTerrain();
-
-        ChoisirPlantes();
+        ChoisirRepartition();
+        CreerGrillePotager();
+        AfficherTerrainsInitial();
+        BoucleDeJeu();
     }
 
-    private void ChoisirTerrain()
+    private void ChoisirRepartition()
     {
-        Console.WriteLine("Choisissez un type de terrain :");
-        Console.WriteLine("1. Sable");
-        Console.WriteLine("2. Terre");
-        Console.WriteLine("3. Argile");
-
-        var choixTerrain = Console.ReadLine();
-        switch (choixTerrain)
+        Console.WriteLine("Quel terrain favoriser ? 1=Sable,2=Terre,3=Argile (Entrée=uniforme)");
+        switch (Console.ReadLine())
         {
-            case "1":
-                terrain = new TerrainSable(70, 80, 60, 22);
-                break;
-            case "2":
-                terrain = new TerrainTerre(70, 80, 50, 20);
-                break;
-            case "3":
-                terrain = new TerrainArgile(70, 80, 40, 18);
-                break;
-            default:
-                Console.WriteLine("Choix invalide, terrain par défaut (Terre).");
-                terrain = new TerrainTerre(70, 80, 50, 20);
-                break;
+            case "1": poidsSable = 3; break;
+            case "2": poidsTerre = 3; break;
+            case "3": poidsArgile = 3; break;
+            default: poidsTerre = 3 ; Console.WriteLine("Terre à été choisie"); break;
         }
+        
     }
 
-    private void ChoisirPlantes()
+    private void CreerGrillePotager()
+{
+    int lignes = (int)Math.Ceiling(Math.Sqrt(taillePotager));
+    int colonnes = (int)Math.Ceiling((double)taillePotager / lignes);
+    grillePotager = new CasePotager[lignes, colonnes];
+    var rand = new Random();
+    int totalPoids = poidsSable + poidsTerre + poidsArgile;
+    int count = 0;
+
+    for (int i = 0; i < lignes; i++)
     {
-        Console.WriteLine("Que voulez‑vous planter ?");
-        Console.WriteLine(" 1. Tomate  (Comestible)");
-        Console.WriteLine(" 2. Tulipe  (Ornementale)");
-        Console.WriteLine(" 3. Chou    (Comestible)");
-        Console.WriteLine(" 4. Cactus  (Ornementale)");
-        Console.WriteLine("Tapez les numéros des plantes séparés par des espaces (ou Entrée pour aucune) :");
-
-        // lecture de la ligne entière
-        string? ligne = Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(ligne))
+        for (int j = 0; j < colonnes; j++, count++)
         {
-            Console.WriteLine("Aucune plante ajoutée.");
-            return;
-        }
-
-        // découper la saisie sur les espaces
-        string[] choix = ligne.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-
-        foreach (string c in choix)
-        {
-            switch (c)
+            if (count < taillePotager)
             {
-                case "1":
-                    plantes.Add(new PlanteComestible("Tomate", "Annuelle", terrain, "Printemps", 60, 80, 22, 1, 7,
-                        new Maladies("Mildiou", 0.3, "taches jaunes sur les feuilles"), 2, 10, 5, "Comestible"));
-                    Console.WriteLine("Tomate plantée.");
-                    break;
-
-                case "2":
-                    plantes.Add(new PlanteOrnementale("Tulipe", "Vivace", terrain, "Automne", 40, 90, 18, 2, 10,
-                        new Maladies("Rouille", 0.2, "taches rouges sur les feuilles"), 5, 8, 3, "Ornementale"));
-                    Console.WriteLine("Tulipe plantée.");
-                    break;
-
-                case "3":
-                    plantes.Add(new PlanteComestible("Chou", "Vivace", terrain, "Hiver", 50, 60, 15, 2, 6,
-                        new Maladies("Peronospora", 0.1, "taches blanches sur les feuilles"), 3, 9, 4, "Comestible"));
-                    Console.WriteLine("Chou planté.");
-                    break;
-
-                case "4":
-                    plantes.Add(new PlanteOrnementale("Cactus", "Vivace", terrain, "Printemps", 20, 100, 25, 1, 12,
-                        new Maladies("Acariens", 0.15, "points noirs"), 7, 10, 2, "Ornementale"));
-                    Console.WriteLine("Cactus planté.");
-                    break;
-
-                default:
-                    Console.WriteLine($"\"{c}\" n’est pas un choix valide – ignoré.");
-                    break;
+                int tirage = rand.Next(totalPoids);
+                Terrain terrain = tirage < poidsSable
+                    ? new TerrainSable(70, 80, 60, 22)
+                    : tirage < poidsSable + poidsTerre
+                        ? new TerrainTerre(70, 80, 50, 20)
+                        : new TerrainArgile(70, 80, 40, 18);
+                grillePotager[i, j] = new CasePotager(terrain);
             }
         }
-
-        Console.WriteLine($"{plantes.Count} plante(s) au total dans le potager.");
     }
-
+}
+    private void AfficherTerrainsInitial()
+{
+    Console.Clear();
+    Console.WriteLine("Terrains initiaux:\n");
+    int lignes = grillePotager.GetLength(0), colonnes = grillePotager.GetLength(1);
+    for (int i = 0; i < lignes; i++)
+    {
+        for (int j = 0; j < colonnes; j++)
+        {
+            var t = grillePotager[i, j]?.Terrain;
+            Console.Write(t is TerrainSable ? "[S]" :
+                      t is TerrainTerre ? "[T]" :
+                      t is TerrainArgile ? "[A]" : "[ ]");
+        }
+        Console.WriteLine();
+    }
+    Console.WriteLine("\nAppuyez sur une touche pour démarrer...");
+    Console.ReadKey();
+}
 
     public void BoucleDeJeu()
     {
-        Random rand = new Random();
+        var rand = new Random();
         while (true)
         {
-            meteo = new Meteo(rand.Next(-5, 35), rand.Next(0, 100), rand.NextDouble() > 0.8);
-            Console.WriteLine($"Météo actuelle : Température {meteo.Temperature}°C, Précipitations {meteo.Precipitations}%, Gel : {meteo.Gel}");
-
-            foreach (var plante in plantes)
+            GenererMeteo(rand);
+            // Tour de toutes les plantes
+            foreach (var plante in plantes.ToList())
+            // Chance aléatoire de tomber malade
+            if (rand.NextDouble() < 0.2) // 20% de chance
             {
-                plante.AppliquerConditionsMeteo(meteo);
-                if (plante.EtatSante <= 0)
+                Maladies maladie = GenererMaladiePourPlante(plante);
+                if (maladie != null)
                 {
-                    Console.WriteLine($"{plante.Nom} est morte !");
+                    plante.TomberMalade(maladie);
                 }
-                else
-                {
-                    Console.WriteLine($"{plante.Nom} état de santé : {plante.EtatSante}/10");
-                }
+            
+                plante.PasserTour(meteo);
+            }
+
+            // Retirer les plantes mortes
+            var mortes = plantes.Where(p => p.EtatSante <= 0).ToList();
+            foreach (var p in mortes)
+            {
+                RetirerPlante(p);
+                Console.WriteLine($"{p.Nom} est morte et a été retirée du potager.");
             }
 
             AfficherPotager();
-
-
-            Console.WriteLine("Que voulez‑vous faire ?");
-            Console.WriteLine("1. Arroser ");
-            Console.WriteLine("2. Récolter ");
-            Console.WriteLine("3. Quitter");
-
-            var choix = Console.ReadLine();
-
-            switch (choix)
-            {
-                case "1":
-                    if (plantes.Count == 0)
-                    {
-                        Console.WriteLine("Aucune plante dans le potager.");
-                        break;
-                    }
-
-                    Console.WriteLine("Quelle plante voulez‑vous arroser ?");
-                    Console.WriteLine("0. Toutes les plantes");
-                    for (int i = 0; i < plantes.Count; i++)
-                        Console.WriteLine($"{i + 1}. {plantes[i].Nom} (santé {plantes[i].EtatSante}/10)");
-
-                    if (int.TryParse(Console.ReadLine(), out int index))
-                    {
-                        if (index == 0)
-                        {
-                            foreach (var p in plantes) p.Arroser();
-                        }
-                        else if (index >= 1 && index <= plantes.Count)
-                        {
-                            plantes[index - 1].Arroser();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Numéro invalide.");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Entrée non valide.");
-                    }
-                    break;
-
-                case "2":
-                    if (plantes.Count == 0)
-                    {
-                        Console.WriteLine("Aucune plante à récolter.");
-                        break;
-                    }
-
-                    Console.WriteLine("Quelle plante voulez‑vous récolter ?");
-                    Console.WriteLine("0. Toutes les plantes");
-                    for (int i = 0; i < plantes.Count; i++)
-                        Console.WriteLine($"{i + 1}. {plantes[i].Nom} (récoltes restantes {plantes[i].NbRecoltesMax})");
-
-                    if (int.TryParse(Console.ReadLine(), out int choixRecolte))
-                    {
-                        if (choixRecolte == 0)
-                            foreach (var p in plantes) p.Recolter();
-                        else if (choixRecolte >= 1 && choixRecolte <= plantes.Count)
-                            plantes[choixRecolte - 1].Recolter();
-                        else
-                            Console.WriteLine("Numéro invalide.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Entrée non valide.");
-                    }
-                    break;
-
-                case "3":
-                    return;
-                default:
-                    Console.WriteLine("Choix invalide.");
-                    break;
-            }
-
-
-            System.Threading.Thread.Sleep(3000);
+            AfficherPlantDetails();
+            AfficherActions();
         }
     }
 
-    // dictionnaire : nom (clé) → emoji (valeur)
-    private readonly Dictionary<string, string> emojiPlante = new()
+    private Maladies GenererMaladiePourPlante(Plante plante)
 {
-    { "Tomate", "🍅" },
-    { "Tulipe", "🌷" },
-    { "Chou",    "🥬" },
-    { "Cactus",  "🌵" }
-};
-
-    private void AfficherPotager()
+    return plante switch
     {
-        Console.Clear();
-        Console.WriteLine("Voici votre potager :\n");
+        PlanteChou => new MaladieChou(),
+        PlanteCactus => new MaladieCactus(),
+        PlanteTomate => new MaladieTomate(),
+        PlanteTulipe => new MaladieTulipe(),
+        _ => null
+    };
+}
 
-        const int largeur = 10;
-        int nbCases = taillePotager;
-        int nbLignes = (int)Math.Ceiling(nbCases / (double)largeur);
-
-        string[] grille = Enumerable.Repeat("  ", nbCases).ToArray();
-
-        for (int i = 0; i < plantes.Count && i < nbCases; i++)
+    private void GenererMeteo(Random rand)
+    {
+        if (rand.NextDouble() < 0.1)
         {
-            var p = plantes[i];
-            grille[i] = emojiPlante.TryGetValue(p.Nom, out string em) ? em : "🌱";
-        }
-
-        int index = 0;
-        for (int ligne = 0; ligne < nbLignes; ligne++)
-        {
-            for (int col = 0; col < largeur && index < nbCases; col++, index++)
-            {
-                Console.Write('[' + grille[index] + ']');
-            }
-            Console.WriteLine();
-        }
-
-        Console.WriteLine("\nDétail des plantes :");
-        if (plantes.Count == 0)
-        {
-            Console.WriteLine("(aucune plante)");
+            Console.WriteLine("⚠️ Épisode météo extrême !");
+            meteo = new Meteo(rand.Next(-15, 0), rand.Next(50, 100), true);
         }
         else
+            meteo = new Meteo(rand.Next(-5, 35), rand.Next(0, 100), rand.NextDouble() > 0.8);
+
+        Console.WriteLine($"Météo: {meteo.Temperature}°C, Précip: {meteo.Precipitations}%, Gel: {meteo.Gel}");
+    }
+
+    private void AfficherPotager()
+{
+    Console.Clear();
+    Console.WriteLine("Potager actuel:\n");
+    int lignes = grillePotager.GetLength(0), colonnes = grillePotager.GetLength(1);
+    int total = taillePotager;
+    string[] vis = Enumerable.Repeat("  ", total).ToArray();
+    var emoji = new Dictionary<string, string> { { "Tomate", "🍅" }, { "Tulipe", "🌷" }, { "Chou", "🥬" }, { "Cactus", "🌵" } };
+    int idx = 0;
+        foreach (var p in plantes.Take(total)) vis[idx++] = emoji.GetValueOrDefault(p.Nom, "🌱");
+        idx = 0;
+        for (int i = 0; i < lignes; i++)
         {
-            foreach (var p in plantes)
+            for (int j = 0; j < total && idx < total; j++, idx++)
+                Console.Write($"[{vis[idx]}]");
+        }
+        Console.WriteLine();
+    
+    Console.WriteLine();
+}
+
+    private void AfficherPlantDetails()
+    {
+        Console.WriteLine("Détail des plantes :");
+        if (!plantes.Any()) { Console.WriteLine("(aucune plante)"); return; }
+        for (int i = 0; i < plantes.Count; i++)
+        {
+            var p = plantes[i];
+            Console.WriteLine($"{i + 1}. {p.Nom} | Santé: {p.EtatSante}/10 | Eau: {p.EauActuelle}/{p.BesoinsEau} | Âge: {p.Age}/{p.EsperanceVie}");
+        }
+    }
+
+    private void AfficherActions()
+    {
+        Console.WriteLine("Actions: 1=Arroser 2=Récolter 3=Planter 4=Quitter");
+        switch (Console.ReadLine())
+        {
+            case "1": Arroser(); break;
+            case "2": Recolter(); break;
+            case "3": Planter(); break;
+            case "4": Environment.Exit(0); break;
+            default: Console.WriteLine("Choix invalide."); break;
+        }
+        Thread.Sleep(1000);
+    }
+
+
+    private void Arroser()
+    {
+        if (!plantes.Any()) { Console.WriteLine("Aucune plante à arroser."); return; }
+        Console.WriteLine("Entrez les numéros des plantes à arroser (séparés par espaces), 0 pour aucune :");
+        AfficherPlantDetails();
+        var saisie = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(saisie)) return;
+        var tokens = saisie.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        foreach (var t in tokens)
+        {
+            if (int.TryParse(t, out int idx) && idx > 0 && idx <= plantes.Count)
+                plantes[idx - 1].Arroser();
+        }
+    }
+
+    private void Recolter()
+    {
+        if (!plantes.Any()) { Console.WriteLine("Aucune plante à récolter."); return; }
+        Console.WriteLine("Entrez les numéros des plantes à récolter (séparés par espaces), 0 pour aucune :");
+        AfficherPlantDetails();
+        var saisie = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(saisie)) return;
+        foreach (var t in saisie.Split(' ', StringSplitOptions.RemoveEmptyEntries))
+        {
+            if (int.TryParse(t, out int idx) && idx > 0 && idx <= plantes.Count)
             {
-                string em = emojiPlante.TryGetValue(p.Nom, out string e) ? e : "🌱";
-                Console.WriteLine($"{em} {p.Nom,-10}  Santé {p.EtatSante}/10  Récoltes {p.NbRecoltesMax}");
+                var plante = plantes[idx - 1];
+                plante.Recolter();
+                if (plante.NbRecoltesMax <= 0 || plante.EtatSante <= 0)
+                {
+                    RetirerPlante(plante);
+                    Console.WriteLine($"{plante.Nom} a été retirée du potager après la dernière récolte.");
+                }
             }
         }
     }
 
+    private void Planter()
+    {
+        Console.WriteLine("Choix des plantes (1=Tomate 2=Tulipe 3=Chou 4=Cactus) :");
+        var tokens = Console.ReadLine()?.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        if (tokens == null) return;
+        foreach (var t in tokens)
+        {
+            if (!int.TryParse(t, out int ch) || ch < 1 || ch > 4) continue;
+            Console.WriteLine("Sur quel terrain? (1=Sable 2=Terre 3=Argile)");
+            var w = Console.ReadLine();
+            TerrainType wanted = w == "1" ? TerrainType.Sable : w == "2" ? TerrainType.Terre : TerrainType.Argile;
+            if (PlanterSurType((PlanteType)ch, wanted))
+                Console.WriteLine("Plante ajoutée.");
+            else
+                Console.WriteLine("Plus de place sur ce terrain.");
+        }
+    }
+
+    private bool PlanterSurType(PlanteType type, TerrainType wanted)
+{
+    int lignes = grillePotager.GetLength(0), colonnes = grillePotager.GetLength(1);
+    for (int i = 0; i < lignes; i++)
+    {
+        for (int j = 0; j < colonnes; j++)
+        {
+            var casePotager = grillePotager[i, j];
+            if (casePotager != null && casePotager.EstLibre() &&
+               ((wanted == TerrainType.Sable && casePotager.Terrain is TerrainSable) ||
+                (wanted == TerrainType.Terre && casePotager.Terrain is TerrainTerre) ||
+                (wanted == TerrainType.Argile && casePotager.Terrain is TerrainArgile)))
+            {
+                Plante p = type switch
+                {
+                    PlanteType.Tomate => new PlanteTomate(casePotager.Terrain),
+                    PlanteType.Tulipe => new PlanteTulipe(casePotager.Terrain),
+                    PlanteType.Chou => new PlanteChou(casePotager.Terrain),
+                    PlanteType.Cactus => new PlanteCactus(casePotager.Terrain),
+                    _ => null
+                };
+                if (p != null)
+                {
+                    casePotager.Plante = p;
+                    plantes.Add(p);
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
+
+    private void RetirerPlante(Plante p)
+{
+    plantes.Remove(p);
+    int lignes = grillePotager.GetLength(0), colonnes = grillePotager.GetLength(1);
+    for (int i = 0; i < lignes; i++)
+    {
+        for (int j = 0; j < colonnes; j++)
+        {
+            if (grillePotager[i, j]?.Plante == p)
+            {
+                grillePotager[i, j].Plante = null;
+            }
+        }
+    }
+}
+}
+
+public enum PlanteType { Tomate = 1, Tulipe, Chou, Cactus }
+public enum TerrainType { Sable, Terre, Argile }
