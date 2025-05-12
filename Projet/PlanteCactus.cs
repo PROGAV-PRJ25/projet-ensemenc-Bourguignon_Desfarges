@@ -1,8 +1,7 @@
 public class PlanteCactus : Plante
 {
-    public PlanteCactus(Terrain terrain) : base("Cactus", "Vivace", terrain, "Printemps", 20, 100, 25, 1, 12,
-                                               new Maladies("Acariens", 0.15, "points noirs"),
-                                               esperanceVie: 10, etatSante: 10, nbRecoltesMax: 2, typePlantes: "Ornementale")
+    public PlanteCactus(Terrain terrain) 
+        : base("Cactus", terrain, 20, 10, 100, 2) // Nom, Terrain, Besoins en eau, Espérance de vie, Santé initiale, Récoltes max
     {
     }
 
@@ -19,12 +18,18 @@ public class PlanteCactus : Plante
 
     public override void Recolter()
     {
-        if (EtatSante <= 0) Console.WriteLine("Cactus mort, impossible de récolter.");
+        if (EtatSante <= 0) 
+        {
+            Console.WriteLine("Cactus mort, impossible de récolter.");
+        }
         else if (NbRecoltesMax > 0)
         {
             NbRecoltesMax--;
             Console.WriteLine($"Cactus cueilli. Restant : {NbRecoltesMax}.");
         }
-        else Console.WriteLine("Plus de cactus à cueillir.");
+        else 
+        {
+            Console.WriteLine("Plus de cactus à cueillir.");
+        }
     }
 }

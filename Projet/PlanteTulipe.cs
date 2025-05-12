@@ -1,8 +1,6 @@
 public class PlanteTulipe : Plante
 {
-    public PlanteTulipe(Terrain terrain) : base("Tulipe", "Vivace", terrain, "Automne", 40, 90, 18, 2, 10,
-                                                new Maladies("Rouille", 0.2, "taches rouges"),
-                                                esperanceVie: 8, etatSante: 10, nbRecoltesMax: 3, typePlantes: "Ornementale")
+    public PlanteTulipe(Terrain terrain) : base("Tulipe", terrain, 40, esperanceVie: 8, etatSante: 10, nbRecoltesMax: 3)
     {
     }
 

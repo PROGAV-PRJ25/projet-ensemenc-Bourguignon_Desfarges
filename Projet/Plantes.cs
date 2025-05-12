@@ -1,47 +1,29 @@
 public abstract class Plante
 {
     public string Nom { get; set; }
-    public string Nature { get; set; }
     public Terrain TerrainActuel { get; set; }
-    public string SaisonSemis { get; set; }
     public double BesoinsEau { get; set; }
-    public double BesoinsLumiere { get; set; }
     public double TemperaturePref { get; set; }
-    public int Espacement { get; set; }
-    public int VitesseCroissance { get; set; }
-
     public int EsperanceVie { get; set; }
     public int EtatSante { get; set; }
     public int NbRecoltesMax { get; set; }
-    public string TypePlantes { get; set; }
     public int Age { get; private set; } = 0;
     public double EauActuelle { get; private set; } = 0;
     public List<Maladies> MaladiesActuelles { get; set; } = new List<Maladies>();
 
 
-    protected Plante(string nom, string nature, Terrain terrainActuel, string saisonSemis,
-                      double besoinsEau, double besoinsLumiere, double temperaturePref,
-                      int espacement, int vitesseCroissance, List<Maladies> maladiesActuelles,
-                      int esperanceVie, int etatSante, int nbRecoltesMax, string typePlantes)
-    {
-        Nom = nom;
-        Nature = nature;
-        TerrainActuel = terrainActuel;
-        SaisonSemis = saisonSemis;
-        BesoinsEau = besoinsEau;
-        BesoinsLumiere = besoinsLumiere;
-        TemperaturePref = temperaturePref;
-        Espacement = espacement;
-        VitesseCroissance = vitesseCroissance;
-        MaladiesActuelles = maladiesActuelles;
-        EsperanceVie = esperanceVie;
-        EtatSante = etatSante;
-        NbRecoltesMax = nbRecoltesMax;
-        TypePlantes = typePlantes;
+    protected Plante(string nom, Terrain terrainActuel, double besoinsEau, int esperanceVie, int etatSante, int nbRecoltesMax)
+{
+    Nom = nom;
+    TerrainActuel = terrainActuel;
+    BesoinsEau = besoinsEau;
+    EsperanceVie = esperanceVie;
+    EtatSante = etatSante;
+    NbRecoltesMax = nbRecoltesMax;
 
-        // Initialiser l'eau actuelle aux besoins en eau lors de la plantation
-        EauActuelle = BesoinsEau;
-    }
+    // Initialiser l'eau actuelle aux besoins en eau lors de la plantation
+    EauActuelle = BesoinsEau;
+}
 
     public void PasserTour(Meteo meteo)
     {

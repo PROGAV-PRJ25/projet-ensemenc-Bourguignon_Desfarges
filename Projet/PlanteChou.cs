@@ -1,8 +1,6 @@
 public class PlanteChou : Plante
 {
-    public PlanteChou(Terrain terrain) : base("Chou", "Vivace", terrain, "Hiver", 50, 60, 15, 2, 6,
-                                              new Maladies("Peronospora", 0.1, "taches blanches"),
-                                              esperanceVie: 9, etatSante: 10, nbRecoltesMax: 4, typePlantes: "Comestible")
+    public PlanteChou(Terrain terrain) : base("Chou", terrain, 50, esperanceVie: 9, etatSante: 10, nbRecoltesMax: 4)
     {
     }
 

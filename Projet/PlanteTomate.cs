@@ -1,8 +1,6 @@
 public class PlanteTomate : Plante
 {
-    public PlanteTomate(Terrain terrain) : base("Tomate", "Annuelle", terrain, "Printemps", 60, 80, 22, 1, 7,
-                                                new Maladies("Mildiou", 0.3, "taches jaunes"),
-                                                esperanceVie: 7, etatSante: 10, nbRecoltesMax: 5, typePlantes: "Comestible")
+    public PlanteTomate(Terrain terrain) : base("Tomate", terrain, 60, esperanceVie: 7, etatSante: 10, nbRecoltesMax: 5)
     {
         if (terrain is TerrainSable)
         {

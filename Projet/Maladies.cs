@@ -9,10 +9,13 @@ public class Maladies
         ProbabiliteContamination = prob;
         Symptomatologie = symptomes;
     }
-
-    public bool PeutContaminer()
+    public virtual void Contaminer(Plante plante)
     {
-        Random rand = new Random();
-        return rand.NextDouble() <= ProbabiliteContamination;
+        if (new Random().NextDouble() < ProbabiliteContamination)
+        {
+            plante.EtatSante -= 20; // Réduit la santé de la plante
+            Console.WriteLine($"{plante.Nom} est contaminée par {Nom}!");
+            Console.WriteLine($"Symptômes: {Symptomatologie}");
+        }
     }
 }
