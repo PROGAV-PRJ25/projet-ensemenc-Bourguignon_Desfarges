@@ -7,37 +7,21 @@ public abstract class Plante
     public double BesoinsEau { get; set; }
     public double BesoinsLumiere { get; set; }
     public double TemperaturePref { get; set; }
+    public int Espacement { get; set; }
     public int VitesseCroissance { get; set; }
-    public Maladies Maladies { get; set; }
+
     public int EsperanceVie { get; set; }
     public int EtatSante { get; set; }
     public int NbRecoltesMax { get; set; }
     public string TypePlantes { get; set; }
     public int Age { get; private set; } = 0;
     public double EauActuelle { get; private set; } = 0;
+    public List<Maladies> MaladiesActuelles { get; set; } = new List<Maladies>();
 
-<<<<<<< HEAD
-    public Plante(string Nom, string Nature, Terrain TerrainPrefere, string SaisonSemis, double BesoinsEau,
-                  double BesoinsLumiere, double TemperaturePref, int VitesseCroissance,
-                  Maladies Maladies, int EsperanceVie, int EtatSante, int NbRecoltesMax, string TypePlantes)
-    {
-        this.Nom = Nom;
-        this.Nature = Nature;
-        this.TerrainPrefere = TerrainPrefere;
-        this.SaisonSemis = SaisonSemis;
-        this.BesoinsEau = BesoinsEau;
-        this.BesoinsLumiere = BesoinsLumiere;
-        this.TemperaturePref = TemperaturePref;
-        this.VitesseCroissance = VitesseCroissance;
-        this.Maladies = Maladies;
-        this.EsperanceVie = EsperanceVie;
-        this.EtatSante = EtatSante;
-        this.NbRecoltesMax = NbRecoltesMax;
-        this.TypePlantes = TypePlantes;
-=======
+
     protected Plante(string nom, string nature, Terrain terrainActuel, string saisonSemis,
                       double besoinsEau, double besoinsLumiere, double temperaturePref,
-                      int espacement, int vitesseCroissance, Maladies maladies,
+                      int espacement, int vitesseCroissance, List<Maladies> maladiesActuelles,
                       int esperanceVie, int etatSante, int nbRecoltesMax, string typePlantes)
     {
         Nom = nom;
@@ -49,7 +33,7 @@ public abstract class Plante
         TemperaturePref = temperaturePref;
         Espacement = espacement;
         VitesseCroissance = vitesseCroissance;
-        Maladies = maladies;
+        MaladiesActuelles = maladiesActuelles;
         EsperanceVie = esperanceVie;
         EtatSante = etatSante;
         NbRecoltesMax = nbRecoltesMax;
@@ -57,7 +41,6 @@ public abstract class Plante
 
         // Initialiser l'eau actuelle aux besoins en eau lors de la plantation
         EauActuelle = BesoinsEau;
->>>>>>> main
     }
 
     public void PasserTour(Meteo meteo)
@@ -101,6 +84,14 @@ public abstract class Plante
             EtatSante = Math.Clamp(EtatSante + bonus, 0, 10);
             string signe = bonus > 0 ? "+" : string.Empty;
             Console.WriteLine($"{Nom} reçoit {signe}{bonus} point(s) de santé grâce au terrain {TerrainActuel.GetType().Name}.");
+        }
+    }
+    public void TomberMalade(Maladies maladie)
+    {
+        if (!MaladiesActuelles.Contains(maladie))
+        {
+            MaladiesActuelles.Add(maladie);
+            Console.WriteLine($"{Nom} a contracté la maladie {maladie.Nom} !");
         }
     }
 
