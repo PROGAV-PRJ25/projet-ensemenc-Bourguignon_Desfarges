@@ -3,11 +3,12 @@ public class Jeu
     private List<Plante> plantes = new List<Plante>();
     private Meteo meteo;
     private int taillePotager;
-    private Terrain[,] grilleTerrains;
+    private Terrain[,] grilleTerrains; // mieux vaux faire un tableau avec plante et et terrain dedans
     private Plante[,] grillePlantes;
 
-    private const int LARGEUR = 10;
+    private const int LARGEUR = 10; // pas nécessaire
     private int poidsSable = 1, poidsTerre = 1, poidsArgile = 1;
+
 
     public Jeu()
     {
@@ -29,7 +30,9 @@ public class Jeu
             case "1": poidsSable = 3; break;
             case "2": poidsTerre = 3; break;
             case "3": poidsArgile = 3; break;
+            default: poidsTerre = 3 ; Console.WriteLine("Terre à été choisie"); break;
         }
+        
     }
 
     private void CreerGrilleTerrains()

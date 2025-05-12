@@ -16,7 +16,6 @@ public abstract class Plante
     public string TypePlantes { get; set; }
     public int Age { get; private set; } = 0;
     public double EauActuelle { get; private set; } = 0;
-    public bool ARecolter { get; private set; } = false;
 
     protected Plante(string nom, string nature, Terrain terrainActuel, string saisonSemis,
                       double besoinsEau, double besoinsLumiere, double temperaturePref,
@@ -44,7 +43,6 @@ public abstract class Plante
 
     public void PasserTour(Meteo meteo)
     {
-        if (ARecolter) return; // Ne pas faire vieillir ni modifier une plante récoltée
 
         // Vieillissement
         Age++;
@@ -104,7 +102,6 @@ public abstract class Plante
                 Console.WriteLine($"{Nom} ne peut plus être récoltée et meurt.");
                 EtatSante = 0;
             }
-            ARecolter = true;
         }
         else
         {
@@ -117,11 +114,11 @@ public abstract class Plante
     {
         if (Math.Abs(meteo.Temperature - TemperaturePref) > 5 || meteo.Gel)
             EtatSante = Math.Max(0, EtatSante - 2);
-        if (meteo.Precipitations > 30 && BesoinsEau < 50)
+        if (meteo.Precipitations > 30 && BesoinsEau < 50) // peut etre pas besoin de besoinEau ds tt les cas pas bon pour plante
             EtatSante = Math.Max(0, EtatSante - 1);
         if (meteo.Precipitations < 10 && BesoinsEau > 50)
             EtatSante = Math.Max(0, EtatSante - 1);
     }
 
-    protected abstract int GetModificateurTerrain();
+    protected abstract int GetModificateurTerrain(); // bonus lié au terrain a voir dans chaque class Plante...
 }
