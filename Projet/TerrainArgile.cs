@@ -14,5 +14,17 @@ public class TerrainArgile : Terrain
     {
     }
 
-
+    public override void PerteHumiditeTour() // L'argile pert très peu d'humidité
+    {
+        double changement;
+        changement = HumiditeSol * 2 / 100;
+        if ((HumiditeSol - changement) > 0)
+        {
+            HumiditeSol -= changement;
+        }
+        else
+        {
+            HumiditeSol = 0;
+        }
+    }
 }
