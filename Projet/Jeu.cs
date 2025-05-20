@@ -12,7 +12,12 @@ public class Jeu
     {
         Console.WriteLine("Bienvenue dans le simulateur de potager !");
         Console.Write("Taille du potager (nombre de cases) : ");
-        taillePotager = int.Parse(Console.ReadLine());
+        int result;
+        while (!int.TryParse(Console.ReadLine(), out result) || result < 0)
+        {
+            Console.WriteLine("Veuillez Rentrez un nombre convenable");
+        }
+        taillePotager = result;
 
         ChoisirRepartition();
         CreerGrillePotager();
@@ -42,7 +47,7 @@ public class Jeu
     int totalPoids = poidsSable + poidsTerre + poidsArgile;
     int count = 0;
 
-    for (int i = 0; i < lignes; i++)
+    for (int i = 0; i < lignes; i++) ////////////////// TRUC A FAIRE : REMPLACER LES TERRAINS PAR LES BONS TRUC
     {
         for (int j = 0; j < colonnes; j++, count++)
         {
@@ -93,7 +98,7 @@ public class Jeu
                 Maladies maladie = GenererMaladiePourPlante(plante);
                 if (maladie != null)
                 {
-                    plante.TomberMalade(maladie);
+                    //plante.TomberMalade(maladie);
                 }
             
                 plante.PasserTour(meteo);
