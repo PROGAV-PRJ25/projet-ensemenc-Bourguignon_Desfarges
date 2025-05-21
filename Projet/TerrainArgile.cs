@@ -8,11 +8,10 @@ public class TerrainArgile : Terrain
     {
     }
 
-    //Constructeur basique pour pouvoir modifier facilement les composantes
-    public TerrainArgile(double humiditeSol, double qualiteSol, double ensoleillement, double temperature)
-        : base("Argile", humiditeSol, qualiteSol, ensoleillement, temperature)
+    public TerrainArgile() : base("Argile", 50, 80)
     {
     }
+
 
     public override void PerteHumiditeTour() // L'argile pert très peu d'humidité
     {
@@ -26,5 +25,15 @@ public class TerrainArgile : Terrain
         {
             HumiditeSol = 0;
         }
+    }
+
+    public override void AppliquerMeteoTerrain()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void PerteDuePlanteTour()
+    {
+        throw new NotImplementedException();
     }
 }

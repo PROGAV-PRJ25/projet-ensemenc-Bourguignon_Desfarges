@@ -1,12 +1,10 @@
 public class TerrainTerre : Terrain
 {
-    public TerrainTerre(double humiditeSol, double qualiteSol, double ensoleillement, double temperature)
-        : base("Terre", humiditeSol, qualiteSol, ensoleillement, temperature)
-    {
-    }
-    
     public TerrainTerre(double ensoleillement, double temperature)
         : base("Terre", 40, 70, ensoleillement, temperature)
+    {
+    }
+    public TerrainTerre(): base("Terre", 40, 70) // Constructeur TEMPORAIRE
     {
     }
 
@@ -38,6 +36,11 @@ public class TerrainTerre : Terrain
     }
 
     public override void PerteDuePlanteTour() // si il y a une plante sur le terrain, en fonction du type de plante, le sol pert des ressources
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void AppliquerMeteoTerrain()
     {
         throw new NotImplementedException();
     }

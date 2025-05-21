@@ -1,12 +1,12 @@
 public class TerrainSable : Terrain
 {
-    public TerrainSable(double humiditeSol, double qualiteSol, double ensoleillement, double temperature)
-        : base("Sable", humiditeSol, qualiteSol, ensoleillement, temperature)
+    public TerrainSable(double ensoleillement, double temperature)
+        : base("Sable", 10, 5, ensoleillement, temperature)
     {
     }
 
-    public TerrainSable(double ensoleillement, double temperature)
-        : base("Sable", 10, 5, ensoleillement, temperature)
+    public TerrainSable() // CONSTRUCTEUR TEMPORAIRE
+        : base("Sable", 10, 5)
     {
     }
 
@@ -30,5 +30,16 @@ public class TerrainSable : Terrain
                 HumiditeSol = 0;
             }
         }
+    }
+
+
+    public override void AppliquerMeteoTerrain()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void PerteDuePlanteTour()
+    {
+        throw new NotImplementedException();
     }
 }
