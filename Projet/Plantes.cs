@@ -73,7 +73,7 @@ public abstract class Plante
         }
 
         // Conditions météo
-        AppliquerConditionsMeteo(meteo);
+        //AppliquerConditionsMeteo(meteo);
 
         // Bonus/Malus terrain
         int bonus = GetModificateurTerrain();
@@ -110,15 +110,15 @@ public abstract class Plante
         }
     }
 
-    public void AppliquerConditionsMeteo(Meteo meteo)
-    {
-        if (Math.Abs(meteo.Temperature - TemperaturePref) > 5 || meteo.Gel)
-            EtatSante = Math.Max(0, EtatSante - 2);
-        if (meteo.Precipitations > 30 && BesoinsEau < 50) // peut etre pas besoin de besoinEau ds tt les cas pas bon pour plante
-            EtatSante = Math.Max(0, EtatSante - 1);
-        if (meteo.Precipitations < 10 && BesoinsEau > 50)
-            EtatSante = Math.Max(0, EtatSante - 1);
-    }
+    // public void AppliquerConditionsMeteo(Meteo meteo)
+    // {
+    //     if (Math.Abs(meteo.Temperature - TemperaturePref) > 5 || meteo.Gel)
+    //         EtatSante = Math.Max(0, EtatSante - 2);
+    //     if (meteo.Precipitations > 30 && BesoinsEau < 50) // peut etre pas besoin de besoinEau ds tt les cas pas bon pour plante
+    //         EtatSante = Math.Max(0, EtatSante - 1);
+    //     if (meteo.Precipitations < 10 && BesoinsEau > 50)
+    //         EtatSante = Math.Max(0, EtatSante - 1);
+    // }
 
     protected abstract int GetModificateurTerrain(); // bonus lié au terrain a voir dans chaque class Plante...
 }

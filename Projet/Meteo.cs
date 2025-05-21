@@ -1,26 +1,30 @@
-public class Meteo
+public abstract class Meteo
 {
+    Random rnd = new Random();
     public double Temperature { get; set; }
-    public double Precipitations { get; set; }
-    public bool Gel { get; set; }
+    public double Pluie { get; set; } // Probabilités sur 10 pour qu'il pleuve dans la région
+    public double Ensoleillement { get; set; }
+    public double CatastropheNaturel { get; set; } // Probabilités sur 10 pour qu'il y ait une catastrophe naturelle
 
-    public Meteo(double temperature, double precipitations, bool gel)
+
+    public Meteo(double temperature, double pluie, double ensoleillement)
     {
         Temperature = temperature;
-        Precipitations = precipitations;
-        Gel = gel;
+        Pluie = pluie;
+        Ensoleillement = ensoleillement;
+        CatastropheNaturel = 10;
     }
 
-    public void AppliquerMeteo(Plante plante)
+    public void AppliquerMeteoTour() // appliquer la météo sur un Tour
     {
-        if (Gel && plante.TemperaturePref < 0)
-        {
-            plante.EtatSante = 0; // La plante meurt si la température descend trop bas
-        }
-        else
-        {
-            plante.EtatSante -= (int)(Math.Abs(plante.TemperaturePref - Temperature) / 10);
-            if (Precipitations > 20) plante.EtatSante -= 1; // Trop d'eau peut nuire
-        }
+
+    }
+
+    public abstract void AppliquerIntemperie();
+
+    public void CreerMeteo()
+    {
+        Temperature = Math.Truncate(Temperature + Temperature * rnd.Next(-11, 10));
+        Ensoleillement = Math.Truncate(Ensoleillement + Ensoleillement * rnd.Next(-11, 10));
     }
 }
