@@ -38,6 +38,7 @@ public abstract class Terrain
 
     public abstract void PerteHumiditeTour(); // a chaque tour, le terrain pert une quantité d'humidité
     public abstract void PerteDuePlanteTour(); // à discuter, mais correspondrait aux minéraux (qualité sol) et a l'au (humidité sol, consommé par la plante)
+    public abstract void AppliquerMeteoTerrain(); // changement lié à la météo
 
     public void JouerUnTour()
     {

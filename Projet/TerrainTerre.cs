@@ -4,6 +4,11 @@ public class TerrainTerre : Terrain
         : base("Terre", humiditeSol, qualiteSol, ensoleillement, temperature)
     {
     }
+    
+    public TerrainTerre(double ensoleillement, double temperature)
+        : base("Terre", 40, 70, ensoleillement, temperature)
+    {
+    }
 
     public override void PerteHumiditeTour()
     {
