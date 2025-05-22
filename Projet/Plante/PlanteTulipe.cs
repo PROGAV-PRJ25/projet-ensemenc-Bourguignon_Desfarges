@@ -27,4 +27,9 @@ public class PlanteTulipe : Plante
         }
         else Console.WriteLine("Plus de tulipes à cueillir.");
     }
+
+    public override string GetIcone()
+    {
+        return "";
+    }
 }

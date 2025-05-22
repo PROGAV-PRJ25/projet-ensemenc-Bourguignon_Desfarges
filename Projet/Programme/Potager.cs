@@ -35,7 +35,7 @@ public class Potager
     {
         Console.WriteLine("Quelle terrain voulez vous favoriser. Votre choix influencera le taux d'apparition de ce terrain (il aura 2 fois plus de chance d'apparaître).\nPour un Terrain plutot sableux, tapez 1,\nPour un Terrain plutot terreux, tapez 2,\nPour un Terrain plutot argileux, tapez 3. ");
         int result;
-        while (!int.TryParse(Console.ReadLine(), out result) || ( result < 0 && result > 3))
+        while (!int.TryParse(Console.ReadLine(), out result) || (result < 0 && result > 3))
         {
             Console.WriteLine("Veuillez rentrez 1(sable), 2(terre) ou 3(argile) ");
         }
@@ -51,8 +51,8 @@ public class Potager
         {
             for (int j = 0; j < PotagerLargeur; j++)
             {
-                Terrain ter = TirerTerrainAuSort();
-                grillePotager[i, j] = new CasePotager(ter, Meteo);
+                Terrain terrain = TirerTerrainAuSort();
+                grillePotager[i, j] = new CasePotager(terrain, Meteo);
             }
         }
         return grillePotager;
@@ -84,22 +84,28 @@ public class Potager
         return t;
     }
 
-    private void AfficherPotager()
+    public void AfficherPotager()
     {
-        //Console.Clear();
-        Console.WriteLine("Potager actuel:\n");
-        string[] vis = Enumerable.Repeat("  ", total).ToArray();
-        var emoji = new Dictionary<string, string> { { "Tomate", "🍅" }, { "Tulipe", "🌷" }, { "Chou", "🥬" }, { "Cactus", "🌵" } };
-        int idx = 0;
-            foreach (var p in plantes.Take(total)) vis[idx++] = emoji.GetValueOrDefault(p.Nom, "🌱");
-            idx = 0;
-            for (int i = 0; i < lignes; i++)
+        for (int i = 0; i < PotagerLongueur; i++)
+        {
+            for (int j = 0; j < PotagerLargeur; j++)
             {
-                for (int j = 0; j < total && idx < total; j++, idx++)
-                    Console.Write($"[{vis[idx]}]");
+                Console.Write(GrillePotager[i, j].AfficherCase());
             }
             Console.WriteLine();
+        }
+    }
 
-        Console.WriteLine();
+    public bool Planter(int x,int y, Plante p)
+    {
+        if (GrillePotager[x, y].EstLibre())
+        {
+            GrillePotager[x, y].Plante = p;
+            return true;
+        }
+        else
+        {
+        return false;
+        }
     }
 }

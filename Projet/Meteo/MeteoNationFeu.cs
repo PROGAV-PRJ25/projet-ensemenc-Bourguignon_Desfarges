@@ -1,7 +1,12 @@
-public class NationFeu : Meteo
+public class MeteoNationFeu : Meteo
 {
-    public NationFeu() : base()
+    public MeteoNationFeu() : base(30, 10, 7)
     {
 
+    }
+
+    public override void AppliquerIntemperie()
+    {
+        throw new NotImplementedException();
     }
 }

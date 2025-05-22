@@ -3,7 +3,7 @@ public abstract class Meteo
     Random rnd = new Random();
     public double Temperature { get; set; }
     public double Pluie { get; set; } // Probabilités sur 10 pour qu'il pleuve dans la région
-    public double Ensoleillement { get; set; }
+    public double Ensoleillement { get; set; } // sur 10
     public double CatastropheNaturel { get; set; } // Probabilités sur 10 pour qu'il y ait une catastrophe naturelle
 
 

@@ -32,4 +32,9 @@ public class PlanteTomate : Plante
         }
         else Console.WriteLine("Plus de tomates à récolter.");
     }
+
+    public override string GetIcone()
+    {
+        return "🍅";
+    }
 }

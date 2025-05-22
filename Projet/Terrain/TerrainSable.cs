@@ -1,7 +1,7 @@
 public class TerrainSable : Terrain
 {
-    public TerrainSable(double ensoleillement, double temperature)
-        : base("Sable", 10, 5, ensoleillement, temperature)
+    public TerrainSable(Meteo m)
+        : base("Sable", 10, 5, m)
     {
     }
 

@@ -1,20 +1,20 @@
 public abstract class Terrain
 {
     Random rnd = new Random();
-    protected string TypeSol { get; set; } //ajout d'un type de terrain, sable, argile, terre
+    public string TypeSol { get; set; } //ajout d'un type de terrain, sable, argile, terre
     protected double HumiditeSol { get; set; } // % niveau d'humidité du sol 
     protected double QualiteSol { get; set; } // richesse du sol en pourcentage 100% sol parfait 0% sol excessivement pauvre
     protected double? Ensoleillement { get; set; } // A VOIR pourcentage d'ensoleillement du soleil
     public double? Temperature { get; set; } // A VOIR Temp en ° qui va être modifié selon la météo
     public Meteo MeteoTerrain { get; set; }
-    public Terrain(string typeSol, double humiditeSol, double qualiteSol,Meteo meteo)
+    public Terrain(string typeSol, double humiditeSol, double qualiteSol, Meteo meteo)
     {
         MeteoTerrain = meteo;
         TypeSol = typeSol;
         HumiditeSol = humiditeSol;
         QualiteSol = qualiteSol;
-        Ensoleillement = meto.Ens;
-        Temperature = temperature;
+        Ensoleillement = meteo.Ensoleillement;
+        Temperature = meteo.Temperature;
         PreparerNouveauTerrain(); // Différenciation à la création de chaque nouveau terrain
     }
 
@@ -23,6 +23,7 @@ public abstract class Terrain
         TypeSol = typeSol;
         HumiditeSol = humiditeSol;
         QualiteSol = qualiteSol;
+        MeteoTerrain = new MeteoNationTerre();
         PreparerNouveauTerrain(); // Différenciation à la création de chaque nouveau terrain
     }
 

@@ -5,7 +5,7 @@ public class CasePotager
     public Terrain Terrain { get; set; }
     public Plante? Plante { get; set; }
 
-    public CasePotager(Terrain terrain, Plante plante, Meteo meteo)
+    public CasePotager(Terrain terrain,  Meteo meteo,Plante plante)
     {
         Terrain = terrain;
         Plante = plante;
@@ -29,11 +29,23 @@ public class CasePotager
         string affichage = "";
         if (Plante == null)
         {
-            
+            if (Terrain.TypeSol == "Argile")
+            {
+                affichage = "🟫";
+            }
+            else if (Terrain.TypeSol == "Terre")
+            {
+                affichage = "🟩";
+            }
+            else
+            {
+                affichage = "⬜";
+            }
         }
         else
         {
-            
+            affichage = "[" + Plante.GetIcone() + "]"; // permet de recupérer l'icone qui correspond a la plante
         }
+        return affichage;
     }
 }

@@ -1,7 +1,7 @@
 public class TerrainTerre : Terrain
 {
-    public TerrainTerre(double ensoleillement, double temperature)
-        : base("Terre", 40, 70, ensoleillement, temperature)
+    public TerrainTerre(Meteo m)
+        : base("Terre", 40, 70, m)
     {
     }
     public TerrainTerre(): base("Terre", 40, 70) // Constructeur TEMPORAIRE

@@ -27,4 +27,8 @@ public class PlanteCactus : Plante
         }
         else Console.WriteLine("Plus de cactus à cueillir.");
     }
+    public override string GetIcone()
+    {
+        return "🌵";
+    }
 }

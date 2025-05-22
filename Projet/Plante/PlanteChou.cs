@@ -27,4 +27,10 @@ public class PlanteChou : Plante
         }
         else Console.WriteLine("Plus de choux à récolter.");
     }
+
+    public override string GetIcone()
+    {
+        return "🥬";
+    }
+    
 }

@@ -120,5 +120,6 @@ public abstract class Plante
     //         EtatSante = Math.Max(0, EtatSante - 1);
     // }
 
+    public abstract string GetIcone();
     protected abstract int GetModificateurTerrain(); // bonus lié au terrain a voir dans chaque class Plante...
 }
