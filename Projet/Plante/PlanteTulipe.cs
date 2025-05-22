@@ -19,16 +19,7 @@ public class PlanteTulipe : Plante
     //     };
     // }
 
-    // public override void Recolter()
-    // {
-    //     if (EtatSante <= 0) Console.WriteLine("Tulipe morte, impossible de récolter.");
-    //     else if (NbRecoltesMax > 0)
-    //     {
-    //         NbRecoltesMax--;
-    //         Console.WriteLine($"Tulipe cueillie. Restant : {NbRecoltesMax}.");
-    //     }
-    //     else Console.WriteLine("Plus de tulipes à cueillir.");
-    // }
+
 
     public override string GetIcone()
     {

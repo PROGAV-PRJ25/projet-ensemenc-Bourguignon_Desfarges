@@ -20,16 +20,6 @@ public class PlanteCactus : Plante
     //     };
     // }
 
-    // public override void Recolter()
-    // {
-    //     if (EtatSante <= 0) Console.WriteLine("Cactus mort, impossible de récolter.");
-    //     else if (NbRecoltesMax > 0)
-    //     {
-    //         NbRecoltesMax--;
-    //         Console.WriteLine($"Cactus cueilli. Restant : {NbRecoltesMax}.");
-    //     }
-    //     else Console.WriteLine("Plus de cactus à cueillir.");
-    // }
     public override string GetIcone()
     {
         return "🌵";

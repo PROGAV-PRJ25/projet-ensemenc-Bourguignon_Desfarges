@@ -21,8 +21,8 @@ public abstract class Plante
     {
         Nom = nom;
     }
- 
-    
+
+    //public abstract void JouerTourPlante();
 
 
 

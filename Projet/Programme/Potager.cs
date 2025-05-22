@@ -42,8 +42,6 @@ public class Potager
         return result;
     }
 
-
-
     public CasePotager[,] CreationPotager()
     {
         CasePotager[,] grillePotager = new CasePotager[PotagerLongueur, PotagerLargeur];
