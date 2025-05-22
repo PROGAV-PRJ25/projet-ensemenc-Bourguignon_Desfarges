@@ -3,7 +3,7 @@ public class Jeu
     public void AfficherRegles()
     {
         string phrase = "";
-        phrase += "Ce jeu est un simulateur de potager dans l'univers d'Avatar le Dernier maître de l'air. Votre but est de maximiser vos récoltes. \nLe jeu se déroulera sur 15 tours.\nPour chaques tour vous aurez droit a 4 actions maximum. Une fois ces 4 actions ou moins réalisés, une semaine se déroulera et vous pourrez réalisé le prochain tour\nLa réussite de votre partie dépendra de votre capacité à gérer votre potager tout en vous adaptant aux différentes variables extérieurs comme la météo ou les maladies ! \n Bon courage !.";
+        phrase += "Ce jeu est un simulateur de potager dans l'univers d'Avatar le Dernier maître de l'air. Votre but est de maximiser vos récoltes. \nLe jeu se déroulera sur 15 tours.\nPour chaques tour vous aurez droit a 5 actions maximum. Une fois ces 4 actions ou moins réalisés, une semaine se déroulera et vous pourrez réalisé le prochain tour\nLa réussite de votre partie dépendra de votre capacité à gérer votre potager tout en vous adaptant aux différentes variables extérieurs comme la météo ou les maladies ! \n Bon courage !.";
     }
 
     public void ChoisirAfficherRegles()

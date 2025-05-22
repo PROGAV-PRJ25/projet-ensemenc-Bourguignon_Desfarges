@@ -96,7 +96,62 @@ public class Potager
         }
     }
 
-    public bool Planter(int x,int y, Plante p)
+    public void ChoisirPlanter()
+    {
+        Console.WriteLine("Voulez vous planter une plante ?");
+        string answer;
+        do
+        {
+            Console.WriteLine("A quelle position souhaitez vous planter votre plante, (entrer la case en hauteur puis largeur)");
+            int positionX = Convert.ToInt32(Console.ReadLine()!);
+            int positionY = Convert.ToInt32(Console.ReadLine()!);
+
+            Plante p = ChoisirPlante(); // on récupère la plante choisie par l'utilisateur
+
+            if (Planter(positionX, positionY, p))
+            {
+                Console.WriteLine("votre {answer} a été planté ! ");
+            }
+            else
+            {
+                Console.WriteLine("Il y avait déjà une plante à cette position");
+            }
+
+            Console.WriteLine("Souhaitez-vous en ajouter un autre? (oui/non)");
+            answer = Console.ReadLine()!;
+        } while (answer == "oui");
+    }
+
+    public Plante ChoisirPlante()
+    {
+        string answer;
+        Console.WriteLine("Quelle type de plante voulez vous planter, (tulipe/tomate/cactus/chou)");
+        answer = Console.ReadLine()!;
+
+        if (answer == "tulipe")
+        {
+            PlanteTulipe p = new PlanteTulipe();
+            return p;
+        }
+        else if (answer == "tomate")
+        {
+            PlanteTomate p = new PlanteTomate();
+            return p;
+        }
+        else if (answer == "cactus")
+        {
+            PlanteCactus p = new PlanteCactus();
+            return p;
+        }
+        else
+        {
+            PlanteChou p = new PlanteChou();
+            return p;
+        }
+    }
+
+
+    public bool Planter(int x, int y, Plante p)
     {
         if (GrillePotager[x, y].EstLibre())
         {
@@ -105,7 +160,7 @@ public class Potager
         }
         else
         {
-        return false;
+            return false;
         }
     }
 }
