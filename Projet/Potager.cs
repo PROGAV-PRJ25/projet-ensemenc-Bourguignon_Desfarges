@@ -83,4 +83,23 @@ public class Potager
         }
         return t;
     }
+
+    private void AfficherPotager()
+    {
+        //Console.Clear();
+        Console.WriteLine("Potager actuel:\n");
+        string[] vis = Enumerable.Repeat("  ", total).ToArray();
+        var emoji = new Dictionary<string, string> { { "Tomate", "🍅" }, { "Tulipe", "🌷" }, { "Chou", "🥬" }, { "Cactus", "🌵" } };
+        int idx = 0;
+            foreach (var p in plantes.Take(total)) vis[idx++] = emoji.GetValueOrDefault(p.Nom, "🌱");
+            idx = 0;
+            for (int i = 0; i < lignes; i++)
+            {
+                for (int j = 0; j < total && idx < total; j++, idx++)
+                    Console.Write($"[{vis[idx]}]");
+            }
+            Console.WriteLine();
+
+        Console.WriteLine();
+    }
 }

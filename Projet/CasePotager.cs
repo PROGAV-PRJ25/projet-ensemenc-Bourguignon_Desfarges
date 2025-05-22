@@ -23,4 +23,17 @@ public class CasePotager
     {
         return Plante == null;
     }
+
+    public string AfficherCase()
+    {
+        string affichage = "";
+        if (Plante == null)
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }
 }

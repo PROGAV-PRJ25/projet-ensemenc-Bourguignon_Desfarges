@@ -13,13 +13,29 @@ public class Jeu
         while (!int.TryParse(Console.ReadLine(), out result) || (result < 0 && result > 2))
         {
             Console.WriteLine("1 oui, 2 non");
-        }  
+        }
+        if (result == 1)
+        {
+            AfficherRegles();
+        }
+        else{ Console.WriteLine("Très bien, le jeu peut donc commencer ! "); }
+    }
+
+    public int ChoisirNation()
+    {
+        Console.WriteLine("A quelle nation appartenait vous ? \n1 (Feu)\n2 (Eau) \n3 (Terre)");
+        int result;
+        while (!int.TryParse(Console.ReadLine(), out result) || (result < 0 && result > 3))
+        {
+            Console.WriteLine("\n1 (Feu)\n2 (Eau) \n3 (Terre)");
+        }
+        return result;
     }
     
 //     private List<Plante> plantes = new List<Plante>();
-    //     private Meteo meteo;
-    //     private int taillePotager;
-    //     private CasePotager[,] grillePotager;
+//     private Meteo meteo;
+//     private int taillePotager;
+//     private CasePotager[,] grillePotager;
 
     //     private int poidsSable = 1, poidsTerre = 1, poidsArgile = 1;
 

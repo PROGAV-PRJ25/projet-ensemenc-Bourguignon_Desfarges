@@ -6,13 +6,14 @@ public abstract class Terrain
     protected double QualiteSol { get; set; } // richesse du sol en pourcentage 100% sol parfait 0% sol excessivement pauvre
     protected double? Ensoleillement { get; set; } // A VOIR pourcentage d'ensoleillement du soleil
     public double? Temperature { get; set; } // A VOIR Temp en ° qui va être modifié selon la météo
-    public Meteo meteo { get; set; }
-    public Terrain(string typeSol, double humiditeSol, double qualiteSol, double ensoleillement, double temperature)
+    public Meteo MeteoTerrain { get; set; }
+    public Terrain(string typeSol, double humiditeSol, double qualiteSol,Meteo meteo)
     {
+        MeteoTerrain = meteo;
         TypeSol = typeSol;
         HumiditeSol = humiditeSol;
         QualiteSol = qualiteSol;
-        Ensoleillement = ensoleillement;
+        Ensoleillement = meto.Ens;
         Temperature = temperature;
         PreparerNouveauTerrain(); // Différenciation à la création de chaque nouveau terrain
     }
