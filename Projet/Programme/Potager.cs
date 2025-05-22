@@ -65,7 +65,7 @@ public class Potager
             if (test < 2) // une chance sur deux pour avoir le terrain choisi par l'utilisateur
             { t = new TerrainSable(); }
             else if (test == 2) { t = new TerrainTerre(); }
-            else { t = new TerrainSable(); }
+            else { t = new TerrainArgile(); }
         }
         else if (TerrainFavori == 2)
         {
@@ -159,6 +159,18 @@ public class Potager
         else
         {
             return false;
+        }
+    }
+
+    public void JouerTourPotager()
+    {
+        if (Meteo.CatastropheEnCours)
+        {
+            //JouerCatastrophe();
+        }
+        else
+        {
+            
         }
     }
 }

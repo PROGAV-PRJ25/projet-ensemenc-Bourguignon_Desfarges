@@ -1,15 +1,20 @@
 public class Jeu
 {
     public int Semaine { get; set; } // repaire temporelle 
+    public int Nation { get; set; } // choix de la nation (du mode de jeu)
 
     public Jeu()
     {
         Semaine = 1;
+        Nation = 0;
     }
     public void AfficherRegles()
     {
+        Console.Clear();
         string phrase = "";
-        phrase += "Ce jeu est un simulateur de potager dans l'univers d'Avatar le Dernier maître de l'air. Votre but est de maximiser vos récoltes. \nLe jeu se déroulera sur 15 tours.\nPour chaques tour vous aurez droit a 5 actions maximum. Une fois ces 4 actions ou moins réalisés, une semaine se déroulera et vous pourrez réalisé le prochain tour\nLa réussite de votre partie dépendra de votre capacité à gérer votre potager tout en vous adaptant aux différentes variables extérieurs comme la météo ou les maladies ! \n Bon courage !.";
+        phrase += "Ce jeu est un simulateur de potager dans l'univers d'Avatar le Dernier maître de l'air. Votre but est de maximiser vos récoltes. \n\nLe jeu se déroulera sur 15 tours.\n\nPour chaques tour vous aurez droit a 5 actions maximum. Une fois ces 5 actions ou moins réalisés, une semaine se déroulera et vous pourrez réalisé le prochain tour\nLa réussite de votre partie dépendra de votre capacité à gérer votre potager tout en vous adaptant aux différentes variables extérieurs comme la météo ou les maladies ! \n\nBon courage !.\nTapez sur n'importe quelle touche quand vous avez fini";
+        Console.WriteLine(phrase);
+        Console.ReadLine();
     }
 
     public void ChoisirAfficherRegles()
@@ -23,6 +28,7 @@ public class Jeu
         if (result == 1)
         {
             AfficherRegles();
+            Console.Clear();
         }
         else { Console.WriteLine("Très bien, le jeu peut donc commencer ! "); }
     }
@@ -40,16 +46,19 @@ public class Jeu
 
     public void Jouer()
     {
-        ChoisirAfficherRegles(); // affichage ou non des règles
-        ChoisirNation(); // permet de choisir la nation
-                         //Création de la météo en fonction de la nation
-                         //Creation du potager
-                         //Création de l'inventaire
-                         //Affichage du premier Terrain
-                         // choix joueur
+        ChoisirAfficherRegles();                    // affichage ou non des règles
+        Nation = ChoisirNation();                   // permet de choisir la nation
+        Meteo m = CreerMeteo(Nation);               //Création de la météo en fonction de la nation
+        Potager potager = new Potager(m);           //Creation du potager
+                                                    //Création de l'inventaire
+        Console.Clear();
+        Console.WriteLine("Voici votre potager vide !");
+        potager.AfficherPotager();                  //Affichage du premier Terrain
 
-
-        //JouerTour() 
+        for (int i = 0; i < Semaine; i++)
+        {
+            JouerTour();
+        }
 
     }
     public void JouerTour() // va jouer les tours du Potager
@@ -59,8 +68,22 @@ public class Jeu
         // On commence par changer la météo
         // Ensuite on applique les changements de la météo au terrain
     }
-    
 
+    public Meteo CreerMeteo(int nation)
+    {
+        if (nation == 1)
+        {
+            return new MeteoNationFeu();
+        }
+        else if (nation == 2)
+        {
+            return new MeteoNationTerre();
+        }
+        else
+        {
+            return new MeteoTribuEau();
+        }
+    }
 
     //     private void AfficherPlantDetails()
     //     {
