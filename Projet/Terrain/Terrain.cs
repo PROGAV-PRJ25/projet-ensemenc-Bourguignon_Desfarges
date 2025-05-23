@@ -48,11 +48,36 @@ public abstract class Terrain
 
     public abstract void PerteHumiditeTour(); // a chaque tour, le terrain pert une quantité d'humidité
     public abstract void PerteDuePlanteTour(); // à discuter, mais correspondrait aux minéraux (qualité sol) et a l'au (humidité sol, consommé par la plante)
-    public abstract void AppliquerMeteoTerrain(); // changement lié à la météo
+    public void AppliquerMeteoTerrain() // changement lié à la météo
+    {
+        if (MeteoTerrain.IlPleut)
+        {
+            double changement = 30; // perte d'eau supplémentaire due au soleil
+            if ((HumiditeSol + changement) > 0)
+            {
+                HumiditeSol = 100;
+            }
+            else
+            {
+                HumiditeSol = HumiditeSol + changement;
+            }
+        }
+        if (MeteoTerrain.RayonDeSoleil)
+        {
+            double changement = HumiditeSol * rnd.Next(-11) / 100; // perte d'eau supplémentaire due au soleil
+            while ((HumiditeSol + changement) < 0)
+            {
+                changement = HumiditeSol * rnd.Next(-11) / 100;
+            }
+        }
+    }
 
     public void JouerUnTour()
     {
-        PerteHumiditeTour();
-        PerteDuePlanteTour();
+        AppliquerMeteoTerrain(); // Changement de l'humidité en fonction de la météo
+        
+        PerteHumiditeTour(); // Perte d'humidité en fonction du terrain
+
+        //PerteDuePlanteTour(); //rajouter perte du plante
     }
 }

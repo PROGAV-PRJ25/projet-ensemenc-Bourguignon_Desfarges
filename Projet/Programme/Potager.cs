@@ -158,20 +158,16 @@ public class Potager
         }
         else
         {
+            Console.WriteLine("Vous ne pouvez rien planter ici");
             return false;
         }
     }
 
     public void JouerTourPotager()
     {
-        if (Meteo.CatastropheEnCours)
-        {
-            //JouerCatastrophe();
-        }
-        else
-        {
 
-        }
+        ChoisirPlanter();
+        AfficherPotager();
     }
 
     public void JouerModeUrgence()

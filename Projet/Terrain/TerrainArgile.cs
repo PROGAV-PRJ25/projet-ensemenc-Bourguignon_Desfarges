@@ -27,10 +27,7 @@ public class TerrainArgile : Terrain
         }
     }
 
-    public override void AppliquerMeteoTerrain()
-    {
-        throw new NotImplementedException();
-    }
+
 
     public override void PerteDuePlanteTour()
     {

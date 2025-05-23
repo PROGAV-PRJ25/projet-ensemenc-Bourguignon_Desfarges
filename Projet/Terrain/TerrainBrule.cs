@@ -8,9 +8,6 @@ public class TerrainBrule : Terrain // bloqueur de terrain
     public override void PreparerNouveauTerrain() // il ne se passe rien
     {
     }
-    public override void AppliquerMeteoTerrain()
-    {
-    }
 
     public override void PerteDuePlanteTour()
     {

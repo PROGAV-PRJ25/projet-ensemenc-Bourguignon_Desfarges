@@ -40,8 +40,5 @@ public class TerrainTerre : Terrain
         throw new NotImplementedException();
     }
 
-    public override void AppliquerMeteoTerrain()
-    {
-        throw new NotImplementedException();
-    }
+
 }
