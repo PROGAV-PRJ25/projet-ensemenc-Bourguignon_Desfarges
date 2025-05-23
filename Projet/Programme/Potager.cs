@@ -170,7 +170,50 @@ public class Potager
         }
         else
         {
-            
+
         }
     }
+
+    public void JouerModeUrgence()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            Console.Clear();
+            if (i % 2 == 0)
+            {
+                Console.WriteLine("🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 ");
+                Console.WriteLine("-------------URGENCE-------------");
+                Console.WriteLine("🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 🚨 ");
+            }
+            else
+            {
+                Console.WriteLine(
+                     "\t        🔺       \n" +
+                     "\t       🔺🔺      \n" +
+                     "\t      🔺  🔺     \n" +
+                     "\t     🔺 🔥 🔺    \n" +
+                     "\t    🔺  🔥  🔺   \n" +
+                     "\t   🔺   🔥   🔺  \n" +
+                     "\t  🔺    🔥    🔺 \n" +
+                     "\t 🔺🔺🔺🔺🔺🔺🔺🔺\n");
+            }
+            System.Threading.Thread.Sleep(1000);
+        }
+        Console.WriteLine("LES SOLDATS DU FEU VOUS ATTAQUE");
+        Console.Write("Vite ! repondez a leur question !!");
+        Questionnaire q = new Questionnaire();
+        if (q.PoserQuestion())
+        {
+            Console.WriteLine("\nOuf, vous l'avez échappé belle");
+            System.Threading.Thread.Sleep(1000);
+        }
+        else
+        {
+            SupprimerCase();
+            Console.WriteLine("OH NON, Ils ont brulé votre potager");
+            System.Threading.Thread.Sleep(1000);
+        }
+    }
+
+    public void SupprimerCase() {}
 }

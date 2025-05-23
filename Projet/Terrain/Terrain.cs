@@ -27,7 +27,7 @@ public abstract class Terrain
         PreparerNouveauTerrain(); // Différenciation à la création de chaque nouveau terrain
     }
 
-    public void PreparerNouveauTerrain() // randomise légèrement le terrain
+    public virtual void PreparerNouveauTerrain() // randomise légèrement le terrain
     {
         double changement = HumiditeSol * rnd.Next(-11, 11) / 100; // changement de 1 à  10 %
         while ((HumiditeSol + changement) > 100 || (HumiditeSol + changement) < 0) // HumiditeSol doit resté un pourcentage

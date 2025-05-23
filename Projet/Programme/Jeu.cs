@@ -1,5 +1,8 @@
+using System.Xml.Serialization;
+
 public class Jeu
 {
+    Random rnd = new Random();
     public int Semaine { get; set; } // repaire temporelle 
     public int Nation { get; set; } // choix de la nation (du mode de jeu)
 
@@ -55,18 +58,28 @@ public class Jeu
         Console.WriteLine("Voici votre potager vide !");
         potager.AfficherPotager();                  //Affichage du premier Terrain
 
-        for (int i = 0; i < Semaine; i++)
+        for (int i = 0; i < 15; i++)
         {
-            JouerTour();
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine($"----------SEMAINE NUMERO {Semaine}----------------");
+            System.Threading.Thread.Sleep(1000);
+
+            if (rnd.Next(10) == 0) // une chance sur 10 pour le mode urgence
+            {
+                potager.JouerModeUrgence();
+            }
+            JouerTour(potager);
+            Semaine++;
         }
 
     }
-    public void JouerTour() // va jouer les tours du Potager
+    public void JouerTour(Potager p) // va jouer les tours du Potager
     {
         // On applique les changements sur la Plante
         // On affiche l'état de toute les plantes
         // On commence par changer la météo
         // Ensuite on applique les changements de la météo au terrain
+        p.AfficherPotager();
     }
 
     public Meteo CreerMeteo(int nation)
@@ -84,6 +97,8 @@ public class Jeu
             return new MeteoTribuEau();
         }
     }
+
+
 
     //     private void AfficherPlantDetails()
     //     {
