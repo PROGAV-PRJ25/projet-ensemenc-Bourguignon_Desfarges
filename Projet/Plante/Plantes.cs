@@ -64,19 +64,20 @@ public abstract class Plante
     {
         if (TerrainPlante != null && (TerrainPlante.Temperature < ChaleurLim[0] || TerrainPlante.Temperature > ChaleurLim[1]))
         {
-            EtatSante++;
-            return true;            
+            EtatSante -= 2;
+            return false;            
         }
         else
         {
-            EtatSante = EtatSante - 2;
-            return false;
+            EtatSante += 1;
+            return true;
         }
     }
 
 
     public void TourPlante()
     {
+        Age++;
         TestEau();
         TestTemp();
         MourirPlante();
