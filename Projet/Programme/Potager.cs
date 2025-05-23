@@ -8,6 +8,8 @@ public class Potager
     public int PotagerLargeur { get; private set; }
     public int TerrainFavori { get; set; } // Terrain favori 1 = sable; 2 = terre; 3 = argile
     protected CasePotager[,] GrillePotager { get; set; }
+    public List<Plante> ListePlante { get; set; } = new List<Plante> { };
+    public int Action { get; set; } = 5;
 
     public Potager(Meteo meteo)
     {
@@ -19,15 +21,17 @@ public class Potager
     }
     public int RecupererTaillePotager(bool test) // permet de récupérer la taille du potager
     {
+        Console.WriteLine("Vous allez pouvoir choisir la taille de votre potager \n(taille minimale 5x5)\n(taille maximale 12x12)\n\n");
         string mot;
-        if (test) { mot = "longueur"; }
+        if (test) { mot = "hauteur"; }
         else { mot = "largeur"; }
         Console.Write($"Quelle est la {mot} de votre potager (nombre de cases) : ");
         int result;
-        while (!int.TryParse(Console.ReadLine(), out result) || result < 0)
+        while (!int.TryParse(Console.ReadLine(), out result) || result < 5 || result > 12)
         {
             Console.WriteLine("Veuillez Rentrez un nombre convenable");
         }
+        Console.Clear();
         return result;
     }
 
@@ -39,6 +43,7 @@ public class Potager
         {
             Console.WriteLine("Veuillez rentrez 1(sable), 2(terre) ou 3(argile) ");
         }
+        Console.Clear();
         return result;
     }
 
@@ -96,28 +101,53 @@ public class Potager
 
     public void ChoisirPlanter()
     {
-        Console.WriteLine("Voulez vous planter une plante ?");
+        Console.WriteLine("Voulez vous planter une plante (oui/non) ?");
         string answer;
-        do
+        answer = Console.ReadLine()!;
+        while (answer == "oui" && Action > 0)
         {
-            Console.WriteLine("A quelle position souhaitez vous planter votre plante, (entrer la case en hauteur puis largeur)");
+            Console.WriteLine("A quelle position souhaitez vous planter votre plante, entrer la case en hauteur");
+
             int positionX = Convert.ToInt32(Console.ReadLine()!);
+            while (positionX <= 0 || positionX > PotagerLongueur)
+            {
+                Console.WriteLine("Veuillez entrez une hauteur qui soit sur le potager");
+                positionX = Convert.ToInt32(Console.ReadLine()!);
+            }
+            positionX--;
+
+            Console.WriteLine("A quelle largeur souhaitez vous planter votre plante");
             int positionY = Convert.ToInt32(Console.ReadLine()!);
+            while (positionY <= 0 || positionY > PotagerLongueur)
+            {
+                Console.WriteLine("Veuillez entrez une largeur qui soit sur le potager");
+                positionY = Convert.ToInt32(Console.ReadLine()!);
+            }
+            positionY--;
+
 
             Plante p = ChoisirPlante(); // on récupère la plante choisie par l'utilisateur
 
             if (Planter(positionX, positionY, p))
             {
-                Console.WriteLine("votre {answer} a été planté ! ");
+                Console.Clear();
+                Console.WriteLine($"votre {p.Nom} a été planté ! ");
+                Action--;
+                AfficherPotager();
             }
             else
             {
                 Console.WriteLine("Il y avait déjà une plante à cette position");
             }
 
-            Console.WriteLine("Souhaitez-vous en ajouter un autre? (oui/non)");
+            Console.WriteLine("Souhaitez-vous en ajouter une autre? (oui/non)");
             answer = Console.ReadLine()!;
-        } while (answer == "oui");
+        }
+        if (Action == 0)
+        {
+            Console.WriteLine("Vous avez réalisé toute vos actions\nPassage au tour suivant");
+            System.Threading.Thread.Sleep(1000);
+        }
     }
 
     public Plante ChoisirPlante()
@@ -129,21 +159,25 @@ public class Potager
         if (answer == "tulipe")
         {
             PlanteTulipe p = new PlanteTulipe();
+            ListePlante.Add(p);
             return p;
         }
         else if (answer == "tomate")
         {
             PlanteTomate p = new PlanteTomate();
+            ListePlante.Add(p);
             return p;
         }
         else if (answer == "cactus")
         {
             PlanteCactus p = new PlanteCactus();
+            ListePlante.Add(p);
             return p;
         }
         else
         {
             PlanteChou p = new PlanteChou();
+            ListePlante.Add(p);
             return p;
         }
     }
@@ -165,9 +199,15 @@ public class Potager
 
     public void JouerTourPotager()
     {
-
+        Action = 5; // on réactualise le nombre d'action
         ChoisirPlanter();
+        Console.Clear();
+        Console.WriteLine("Voici votre potager à la fin du tour ! ");
         AfficherPotager();
+    }
+    public void AfficherPlante()
+    {
+
     }
 
     public void JouerModeUrgence()
@@ -195,8 +235,9 @@ public class Potager
             }
             System.Threading.Thread.Sleep(1000);
         }
-        Console.WriteLine("LES SOLDATS DU FEU VOUS ATTAQUE");
-        Console.Write("Vite ! repondez a leur question !! Ils bruleront votre potager sinon !! 🔥🔥");
+        Console.WriteLine();
+        Console.WriteLine("LES SOLDATS DU FEU VOUS ATTAQUE\n");
+        Console.Write("Vite ! repondez a leur question !! Ils bruleront votre potager sinon !! 🔥🔥\n");
         Questionnaire q = new Questionnaire();
         if (q.PoserQuestion())
         {
@@ -209,6 +250,7 @@ public class Potager
             Console.WriteLine("\nOH NON, Ils ont brulé votre potager");
             System.Threading.Thread.Sleep(1000);
         }
+        Console.Clear();
     }
 
     public void SupprimerCase() // permet de bloquer une ligne

@@ -50,19 +50,23 @@ public abstract class Meteo
         if (test < Pluie)
         {
             IlPleut = true;
+            Console.WriteLine("Il pleut cette semaine ! l'humidité du sol a du augmentée ! 💧");
         }
         else
         {
             IlPleut = false;
+            Console.WriteLine("Hmmm, il n'a pas plu...");
         }
         test = rnd.Next(10);
         if (test < Ensoleillement)
         {
             RayonDeSoleil = true;
+            Console.WriteLine("Il y a aussi eu de grand rayon de soleil ! ☀️");
         }
         else
         {
             RayonDeSoleil = false;
+            Console.WriteLine("Pas un rayon de soleil a l'horizon...");
         }
         test = rnd.Next(20);
         if (test < Ensoleillement)

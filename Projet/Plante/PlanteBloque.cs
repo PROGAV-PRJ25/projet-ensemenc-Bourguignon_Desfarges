@@ -7,6 +7,6 @@ public class PlanteBloque : Plante
 
     public override string GetIcone()
     {
-        return "🔥";
+        return "❌";
     }
 }

@@ -38,12 +38,14 @@ public class Jeu
 
     public int ChoisirNation()
     {
+        Console.Clear();
         Console.WriteLine("A quelle nation appartenait vous ? \n1 (Feu)\n2 (Eau) \n3 (Terre)");
         int result;
         while (!int.TryParse(Console.ReadLine(), out result) || (result < 0 && result > 3))
         {
             Console.WriteLine("\n1 (Feu)\n2 (Eau) \n3 (Terre)");
         }
+        Console.Clear();
         return result;
     }
 
@@ -53,13 +55,14 @@ public class Jeu
         ChoisirAfficherRegles();                    // affichage ou non des règles
         Nation = ChoisirNation();                   // permet de choisir la nation
         Meteo m = CreerMeteo(Nation);               //Création de la météo en fonction de la nation
+        Console.Clear();                            // permet d'effacer l'affichage de base de la météo
         Potager potager = new Potager(m);           //Creation du potager
                                                     //Création de l'inventaire
         Console.Clear();
         Console.WriteLine("Voici votre potager vide !");
         potager.AfficherPotager();                  //Affichage du premier Terrain
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 15; i++) // 15 tour de la partie
         {
             Console.WriteLine("------------------------------------------");
             Console.WriteLine($"----------SEMAINE NUMERO {Semaine}----------------");
@@ -68,6 +71,8 @@ public class Jeu
             if (rnd.Next(10) == 0) // une chance sur 10 pour le mode urgence
             {
                 potager.JouerModeUrgence();
+                System.Threading.Thread.Sleep(1000);
+                potager.AfficherPotager();
             }
             JouerTour(potager);
             Semaine++;
@@ -78,7 +83,7 @@ public class Jeu
     {
         p.Meteo.AppliquerMeteoTour(); // on change la météo
         // On applique les changements sur la Plante
-        // On affiche l'état de toute les plantes
+        p.JouerTourPotager();
         // On commence par changer la météo
         // Ensuite on applique les changements de la météo au terrain
 
