@@ -1,6 +1,6 @@
 public class MeteoTribuEau : Meteo
 {
-    public MeteoTribuEau() : base(3, 3, 3)
+    public MeteoTribuEau() : base(10, 3, 3)
     {
         
     }

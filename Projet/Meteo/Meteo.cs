@@ -63,13 +63,13 @@ public abstract class Meteo
         {
             RayonDeSoleil = true;
             Console.WriteLine("Il y a aussi eu de grand rayon de soleil ! ☀️");
-            Temperature += 6;
+            Temperature += 2;
         }
         else
         {
             RayonDeSoleil = false;
             Console.WriteLine("Pas un rayon de soleil a l'horizon...");
-            Temperature -= 6;
+            Temperature -= 2;
         }
         test = rnd.Next(20);
         if (test < Ensoleillement)
@@ -80,6 +80,6 @@ public abstract class Meteo
         {
             CatastropheEnCours = false;
         }
-        Temperature = Math.Round(Temperature + rnd.NextDouble() * rnd.Next(-7,8),2);
+        Temperature = Math.Round(Temperature + rnd.NextDouble() * rnd.Next(-3,4),2);
     }
 }
