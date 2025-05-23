@@ -199,7 +199,7 @@ public class Potager
 
     public void JouerTourPotager()
     {
-        JouerTourPlante(); // actualise l'état de toutes les plantes
+        //JouerTourPlante(); // actualise l'état de toutes les plantes
         RetirerPlanteMortePotager();
         Action = 5; // on réactualise le nombre d'action
         ChoisirPlanter();

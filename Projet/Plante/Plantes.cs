@@ -48,7 +48,7 @@ public abstract class Plante
 
     public bool TestEau()
     {
-        if (TerrainPlante != null && (TerrainPlante.HumiditeSol > HumiditeLim[0] || TerrainPlante.HumiditeSol < HumiditeLim[1]))
+        if (TerrainPlante != null && (TerrainPlante.HumiditeSol < HumiditeLim[0] || TerrainPlante.HumiditeSol > HumiditeLim[1]))
         {
             EtatSante = EtatSante - 2;
             return false;
@@ -62,7 +62,7 @@ public abstract class Plante
 
     public bool TestTemp()
     {
-        if (TerrainPlante != null && (TerrainPlante.Temperature > ChaleurLim[0] || TerrainPlante.Temperature < ChaleurLim[1]))
+        if (TerrainPlante != null && (TerrainPlante.Temperature < ChaleurLim[0] || TerrainPlante.Temperature > ChaleurLim[1]))
         {
             EtatSante++;
             return true;            
@@ -77,7 +77,6 @@ public abstract class Plante
 
     public void TourPlante()
     {
-        Age++;
         TestEau();
         TestTemp();
         MourirPlante();
