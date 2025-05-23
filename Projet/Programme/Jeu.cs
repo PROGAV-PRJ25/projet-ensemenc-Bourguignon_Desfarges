@@ -75,9 +75,12 @@ public class Jeu
                 System.Threading.Thread.Sleep(1000);
                 potager.AfficherPotager();
             }
-            
+
             Semaine++;
         }
+        Console.Clear();
+        Console.WriteLine("Voici votre potager final !");
+        potager.AfficherPotager();
 
     }
     public void JouerTour(Potager p) // va jouer les tours du Potager
