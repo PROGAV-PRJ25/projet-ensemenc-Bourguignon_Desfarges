@@ -215,5 +215,15 @@ public class Potager
         }
     }
 
-    public void SupprimerCase() {}
+    public void SupprimerCase() // permet de bloquer une ligne
+    {
+        int l = rnd.Next(PotagerLargeur); // on tire au hasard une ligne
+        for (int i = 0; i < PotagerLongueur; i++)
+        {
+            TerrainBrule t = new TerrainBrule(Meteo);
+            PlanteBloque p = new PlanteBloque();
+            CasePotager bloqueur = new CasePotager(t,Meteo,p);
+            GrillePotager[l, i] = bloqueur;
+        }
+    }
 }

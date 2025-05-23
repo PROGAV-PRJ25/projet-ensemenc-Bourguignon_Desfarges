@@ -37,6 +37,10 @@ public class CasePotager
             {
                 affichage = "🟩";
             }
+            else if (Terrain.TypeSol == "brulé")
+            {
+                affichage = "🔥";
+            }
             else
             {
                 affichage = "⬜";
@@ -44,7 +48,7 @@ public class CasePotager
         }
         else
         {
-            affichage = "[" + Plante.GetIcone() + "]"; // permet de recupérer l'icone qui correspond a la plante
+            affichage = Plante.GetIcone(); // permet de recupérer l'icone qui correspond a la plante
         }
         return affichage;
     }
