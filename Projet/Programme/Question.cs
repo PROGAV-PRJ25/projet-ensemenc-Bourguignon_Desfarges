@@ -20,4 +20,4 @@ public class Question
         int indexReponse = reponse.ToLower()[0] - 'a';
         return indexReponse == IndexBonneReponse;
     }
-}
+}   
