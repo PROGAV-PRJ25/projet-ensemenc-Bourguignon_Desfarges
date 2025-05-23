@@ -1,57 +1,87 @@
 public abstract class Plante
 {
     public string Nom { get; set; }
-    //public string Nature { get; set; }
-    //public Terrain TerrainActuel { get; set; }
-    //public string SaisonSemis { get; set; }
-    //public double BesoinsEau { get; set; }
-    //public double BesoinsLumiere { get; set; }
-    //public double TemperaturePref { get; set; }
-    //public int Espacement { get; set; }
-    //public int VitesseCroissance { get; set; }
-    //public Maladies Maladies { get; set; }
-    //public int EsperanceVie { get; set; }
-    //public int EtatSante { get; set; }
-    //public int NbRecoltesMax { get; set; }
-    //public string TypePlantes { get; set; }
-    //public int Age { get; private set; } = 0;
-    //public double EauActuelle { get; private set; } = 0;
+    public Terrain? TerrainPlante { get; set; }
+    public int VitesseCroissance { get; set; } // nombre de Tour pour atteindre l'age de maturité    
+    public int EsperanceVie { get; set; } // nombre de tour avant de mourir
+    public int EtatSante { get; set; } // etat de sante de la plante sur 5 si 0 elle meurt
+    public int NombreFruit { get; set; } // nombre de fruit/recolte par tour que la plante donne lorsqu'elle est mure
+    public int Age { get; set; }
+    public double[] HumiditeLim { get; set; } 
+    public double[] ChaleurLim { get; set; } 
 
-    public Plante(string nom)
+    public bool Dessechee { get; set; }
+    public bool BonneTemp { get; set; }
+    public bool Morte { get; set; }
+
+    public Plante(string nom, int vitesseCroissance, int esperanceVie, int nombreFruit, double[] humMin, double[] chaleurlim)
     {
         Nom = nom;
+        VitesseCroissance = vitesseCroissance;
+        EsperanceVie = esperanceVie;
+        EtatSante = 5;
+        NombreFruit = nombreFruit;
+        Age = 0;
+        Dessechee = TestEau();
+        BonneTemp = TestTemp();
+        Morte = false;
+        HumiditeLim = humMin;
+        ChaleurLim = chaleurlim;
     }
 
-    //public abstract void JouerTourPlante();
+    public void MourirPlante()
+    {
+        if (Dessechee && !BonneTemp) // si 50% des conditions de survie de la plante ne sont pas réunie elle meurt
+        {
+            Morte = true;
+        }
+        if (Age > EsperanceVie)
+        {
+            Morte = true;
+        }
+        if (EtatSante <= 0)
+        {
+            Morte = true;
+        }
+    }
 
 
+    public bool TestEau()
+    {
+        if (TerrainPlante != null && (TerrainPlante.HumiditeSol > HumiditeLim[0] || TerrainPlante.HumiditeSol < HumiditeLim[1]))
+        {
+            EtatSante = EtatSante - 2;
+            return false;
+        }
+        else
+        {
+            EtatSante++;
+            return true;
+        }
+    }
+
+    public bool TestTemp()
+    {
+        if (TerrainPlante != null && (TerrainPlante.Temperature > ChaleurLim[0] || TerrainPlante.Temperature < ChaleurLim[1]))
+        {
+            EtatSante++;
+            return true;            
+        }
+        else
+        {
+            EtatSante = EtatSante - 2;
+            return false;
+        }
+    }
 
 
-    // public void Arroser()
-    // {
-    //     EauActuelle += 10;
-    //     Console.WriteLine($"{Nom} a été arrosée (+10). Eau actuelle : {EauActuelle}/{BesoinsEau}.");
-    // }
-
-    // public virtual void Recolter()
-    // {
-    //     if (NbRecoltesMax > 0)
-    //     {
-    //         NbRecoltesMax--;
-    //         Console.WriteLine($"{Nom} a été récoltée ! Récoltes restantes : {NbRecoltesMax}");
-    //         if (NbRecoltesMax == 0)
-    //         {
-    //             Console.WriteLine($"{Nom} ne peut plus être récoltée et meurt.");
-    //             EtatSante = 0;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         Console.WriteLine($"{Nom} ne peut plus être récoltée.");
-    //         EtatSante = 0;
-    //     }
-    // }
+    public void TourPlante()
+    {
+        Age++;
+        TestEau();
+        TestTemp();
+        MourirPlante();
+    }
 
     public abstract string GetIcone();
-    //protected abstract int GetModificateurTerrain(); // bonus lié au terrain a voir dans chaque class Plante...
 }

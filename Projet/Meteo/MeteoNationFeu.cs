@@ -1,6 +1,6 @@
 public class MeteoNationFeu : Meteo
 {
-    public MeteoNationFeu() : base(30, 10, 7)
+    public MeteoNationFeu() : base(20, 10, 7)
     {
 
     }

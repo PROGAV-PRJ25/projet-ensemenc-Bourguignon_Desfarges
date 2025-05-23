@@ -5,11 +5,12 @@ public class CasePotager
     public Terrain Terrain { get; set; }
     public Plante? Plante { get; set; }
 
-    public CasePotager(Terrain terrain,  Meteo meteo,Plante plante)
+    public CasePotager(Terrain terrain, Meteo meteo, Plante plante)
     {
         Terrain = terrain;
         Plante = plante;
         MeteoPotager = meteo;
+        Plante.TerrainPlante = Terrain; // on transmet le terrain a la plante
     }
 
     public CasePotager(Terrain terrain, Meteo meteo)
@@ -22,6 +23,14 @@ public class CasePotager
     public bool EstLibre()
     {
         return Plante == null;
+    }
+
+    public void RetirerPlanteMorte() // retire une plante morte
+    {
+        if (Plante != null && Plante.Morte)
+        {
+            Plante = null;
+        }
     }
 
     public string AfficherCase()

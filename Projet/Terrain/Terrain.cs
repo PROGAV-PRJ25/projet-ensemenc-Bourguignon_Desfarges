@@ -2,7 +2,7 @@ public abstract class Terrain
 {
     Random rnd = new Random();
     public string TypeSol { get; set; } //ajout d'un type de terrain, sable, argile, terre
-    protected double HumiditeSol { get; set; } // % niveau d'humidité du sol 
+    public double HumiditeSol { get; set; } // % niveau d'humidité du sol 
     protected double QualiteSol { get; set; } // richesse du sol en pourcentage 100% sol parfait 0% sol excessivement pauvre
     protected double? Ensoleillement { get; set; } // A VOIR pourcentage d'ensoleillement du soleil
     public double? Temperature { get; set; } // A VOIR Temp en ° qui va être modifié selon la météo

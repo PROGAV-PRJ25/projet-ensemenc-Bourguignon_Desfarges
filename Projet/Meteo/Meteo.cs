@@ -7,9 +7,9 @@ public abstract class Meteo
         get { return temperature; }
         set
         {
-            if (value < -20)
+            if (value < -10)
             {
-                temperature = -20;
+                temperature = -10;
             }
             else if (value > 50)
             {
@@ -40,6 +40,7 @@ public abstract class Meteo
     public void AppliquerMeteoTour() // appliquer la météo sur un Tour
     {
         RandomiserMeteo();
+        Console.WriteLine($"\nLa température moyenne de la semaine est de : {Temperature} ");
     }
 
     public abstract void AppliquerIntemperie();
@@ -62,11 +63,13 @@ public abstract class Meteo
         {
             RayonDeSoleil = true;
             Console.WriteLine("Il y a aussi eu de grand rayon de soleil ! ☀️");
+            Temperature += 6;
         }
         else
         {
             RayonDeSoleil = false;
             Console.WriteLine("Pas un rayon de soleil a l'horizon...");
+            Temperature -= 6;
         }
         test = rnd.Next(20);
         if (test < Ensoleillement)
@@ -77,6 +80,6 @@ public abstract class Meteo
         {
             CatastropheEnCours = false;
         }
-        Temperature = Math.Truncate(Temperature + Temperature * rnd.Next(-11, 11));
+        Temperature = Math.Round(Temperature + rnd.NextDouble() * rnd.Next(-7,8),2);
     }
 }

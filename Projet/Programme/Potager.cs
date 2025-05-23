@@ -199,15 +199,45 @@ public class Potager
 
     public void JouerTourPotager()
     {
+        JouerTourPlante(); // actualise l'état de toutes les plantes
+        RetirerPlanteMortePotager();
         Action = 5; // on réactualise le nombre d'action
         ChoisirPlanter();
         Console.Clear();
         Console.WriteLine("Voici votre potager à la fin du tour ! ");
         AfficherPotager();
     }
+
+    public void JouerTourPlante()
+    {
+        
+        for (int i = 0; i < PotagerLongueur; i++)
+        {
+            for (int j = 0; j < PotagerLargeur; j++)
+            {
+                var plante = GrillePotager[i, j].Plante;
+                if (plante != null)
+                {
+                    plante.TourPlante();
+                }
+            }
+        } 
+    }
+    public void RetirerPlanteMortePotager()
+    {
+        for (int i = 0; i < PotagerLongueur; i++)
+        {
+            for (int j = 0; j < PotagerLargeur; j++)
+            {
+                GrillePotager[i, j].RetirerPlanteMorte();
+            }
+        }
+    }
+
+
     public void AfficherPlante()
     {
-
+        // afficher toutes les statistiques des plantes
     }
 
     public void JouerModeUrgence()

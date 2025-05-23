@@ -15,7 +15,7 @@ public class Jeu
     {
         Console.Clear();
         string phrase = "";
-        phrase += "Ce jeu est un simulateur de potager dans l'univers d'Avatar le Dernier maître de l'air. Votre but est de maximiser vos récoltes. \n\nLe jeu se déroulera sur 15 tours.\n\nPour chaques tour vous aurez droit a 5 actions maximum. Une fois ces 5 actions ou moins réalisés, une semaine se déroulera et vous pourrez réalisé le prochain tour\nLa réussite de votre partie dépendra de votre capacité à gérer votre potager tout en vous adaptant aux différentes variables extérieurs comme la météo ou les maladies ! \n\nBon courage !.\nTapez sur n'importe quelle touche quand vous avez fini";
+        phrase += "Ce jeu est un simulateur de potager dans l'univers d'Avatar le Dernier maître de l'air. Votre but est de maximiser vos récoltes. \n\nLe jeu se déroulera sur 15 tours.\n\nPour chaques tour vous aurez droit a 5 actions maximum. Une fois ces 5 actions ou moins réalisés, une semaine se déroulera et vous pourrez réalisé le prochain tour\nLa réussite de votre partie dépendra de votre capacité à gérer votre potager tout en vous adaptant aux différentes variables extérieurs comme la météo ! \n\nBon courage !.\nTapez sur n'importe quelle touche quand vous avez fini";
         Console.WriteLine(phrase);
         Console.ReadLine();
     }
@@ -67,6 +67,7 @@ public class Jeu
             Console.WriteLine("------------------------------------------");
             Console.WriteLine($"----------SEMAINE NUMERO {Semaine}----------------");
             System.Threading.Thread.Sleep(1000);
+            JouerTour(potager);
 
             if (rnd.Next(10) == 0) // une chance sur 10 pour le mode urgence
             {
@@ -74,7 +75,7 @@ public class Jeu
                 System.Threading.Thread.Sleep(1000);
                 potager.AfficherPotager();
             }
-            JouerTour(potager);
+            
             Semaine++;
         }
 
@@ -82,10 +83,7 @@ public class Jeu
     public void JouerTour(Potager p) // va jouer les tours du Potager
     {
         p.Meteo.AppliquerMeteoTour(); // on change la météo
-        // On applique les changements sur la Plante
         p.JouerTourPotager();
-        // On commence par changer la météo
-        // Ensuite on applique les changements de la météo au terrain
 
     }
 
