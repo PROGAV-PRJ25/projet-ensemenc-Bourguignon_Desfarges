@@ -64,10 +64,10 @@ public abstract class Terrain
         }
         if (MeteoTerrain.RayonDeSoleil)
         {
-            double changement = HumiditeSol * rnd.Next(-11) / 100; // perte d'eau supplémentaire due au soleil
+            double changement = HumiditeSol * rnd.Next(11)* (-1) / 100; // perte d'eau supplémentaire due au soleil
             while ((HumiditeSol + changement) < 0)
             {
-                changement = HumiditeSol * rnd.Next(-11) / 100;
+                changement = HumiditeSol * rnd.Next(11) * (-1) / 100;
             }
         }
     }

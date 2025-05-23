@@ -68,21 +68,21 @@ public class Potager
         if (TerrainFavori == 1)
         {
             if (test < 2) // une chance sur deux pour avoir le terrain choisi par l'utilisateur
-            { t = new TerrainSable(); }
-            else if (test == 2) { t = new TerrainTerre(); }
-            else { t = new TerrainArgile(); }
+            { t = new TerrainSable(Meteo); }
+            else if (test == 2) { t = new TerrainTerre(Meteo); }
+            else { t = new TerrainArgile(Meteo); }
         }
         else if (TerrainFavori == 2)
         {
-            if (test < 2) { t = new TerrainTerre(); }
-            else if (test == 2) { t = new TerrainSable(); }
-            else { t = new TerrainArgile(); }
+            if (test < 2) { t = new TerrainTerre(Meteo); }
+            else if (test == 2) { t = new TerrainSable(Meteo); }
+            else { t = new TerrainArgile(Meteo); }
         }
         else
         {
-            if (test < 2) { t = new TerrainArgile(); }
-            else if (test == 2) { t = new TerrainSable(); }
-            else { t = new TerrainTerre(); }
+            if (test < 2) { t = new TerrainArgile(Meteo); }
+            else if (test == 2) { t = new TerrainSable(Meteo); }
+            else { t = new TerrainTerre(Meteo); }
         }
         return t;
     }
@@ -200,6 +200,7 @@ public class Potager
     public void JouerTourPotager()
     {
         //JouerTourPlante(); // actualise l'état de toutes les plantes
+        JouerTourTerrain();
         RetirerPlanteMortePotager();
         Action = 5; // on réactualise le nombre d'action
         ChoisirPlanter();
@@ -220,6 +221,17 @@ public class Potager
                 {
                     plante.TourPlante();
                 }
+            }
+        } 
+    }
+
+    public void JouerTourTerrain()
+    {
+        for (int i = 0; i < PotagerLongueur; i++)
+        {
+            for (int j = 0; j < PotagerLargeur; j++)
+            {
+                GrillePotager[i, j].Terrain.AppliquerMeteoTerrain();
             }
         } 
     }
