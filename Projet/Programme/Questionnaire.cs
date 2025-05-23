@@ -1,7 +1,8 @@
-public class Questionnaire()
+public class Questionnaire
 {
+    Random rnd = new Random();
 
-    List<Question> questions = new List<Question>
+    private List<Question> questions = new List<Question>
     {
         new Question { Numero = 1, Enonce = "Qui est l’Avatar dans la série ?", Choix = new[] { "Zuko", "Katara", "Aang", "Sokka" }, IndexBonneReponse = 2 },
         new Question { Numero = 2, Enonce = "Quel animal accompagne Aang dans tous ses voyages ?", Choix = new[] { "Un ours", "Un bison volant", "Un chien-dragon", "Une tortue-lion" }, IndexBonneReponse = 1 },
@@ -20,9 +21,24 @@ public class Questionnaire()
         new Question { Numero = 15, Enonce = "Quelle est l’origine des pouvoirs de l’Avatar ?", Choix = new[] { "Les dragons", "Le lion-tortue", "L’esprit de la lune", "La planète Sozin" }, IndexBonneReponse = 1 }
     };
 
-    
     public bool PoserQuestion()
     {
-        return true;
+        int index = rnd.Next(questions.Count);
+        Question q = questions[index];
+
+        q.Afficher();
+        Console.Write("\nVotre réponse (a, b, c, d) : ");
+        string reponse = Console.ReadLine()!;
+
+        if (q.Verifier(reponse))
+        {
+            Console.WriteLine("✅ Bonne réponse !");
+            return true;
+        }
+        else
+        {
+            Console.WriteLine("❌ Mauvaise réponse.");
+            return false;
+        }
     }
 }

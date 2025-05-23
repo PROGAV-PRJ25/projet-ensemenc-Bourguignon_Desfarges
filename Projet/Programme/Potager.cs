@@ -200,7 +200,7 @@ public class Potager
             System.Threading.Thread.Sleep(1000);
         }
         Console.WriteLine("LES SOLDATS DU FEU VOUS ATTAQUE");
-        Console.Write("Vite ! repondez a leur question !!");
+        Console.Write("Vite ! repondez a leur question !! Ils bruleront votre potager sinon !! 🔥🔥");
         Questionnaire q = new Questionnaire();
         if (q.PoserQuestion())
         {
@@ -210,7 +210,7 @@ public class Potager
         else
         {
             SupprimerCase();
-            Console.WriteLine("OH NON, Ils ont brulé votre potager");
+            Console.WriteLine("\nOH NON, Ils ont brulé votre potager");
             System.Threading.Thread.Sleep(1000);
         }
     }

@@ -1,9 +1,10 @@
 public class Question
 {
     public int Numero { get; set; }
-    public string Enonce { get; set; }
-    public string[] Choix { get; set; }
+    public string? Enonce { get; set; }
+    public string[] Choix { get; set; } = Array.Empty<string>();
     public int IndexBonneReponse { get; set; }
+
 
     public void Afficher()
     {
